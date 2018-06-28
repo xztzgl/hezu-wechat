@@ -1,0 +1,44 @@
+@import url("../../../config.less");
+.takePictures{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  background-color: rgba(0,0,0,.5);
+  display: flex;
+  >div{
+    width: 100%;
+    align-self: flex-end;
+    text-align: center;
+    margin: 0 16px;
+    >div{
+      height: 171px/@pixel;
+      line-height: 171px/@pixel;
+      background-color: @c-fff;
+      &:nth-child(1){
+        border-radius: @bdr @bdr 0 0; 
+      }
+      &:nth-child(2){
+        border-radius: 0 0 @bdr @bdr ; 
+        margin-bottom: 21px/@pixel;       
+      }
+      &:nth-child(3){
+        border-radius:@bdr ; 
+        margin-bottom: 21px/@pixel;       
+      }
+    }
+  }
+}
+.upload{
+  text-align: center;
+  // margin: 0 16px;
+  height: 160px/@pixel;
+  line-height: 160px/@pixel;
+  > div{
+    margin: 0 10px;
+    background-color: #eee;
+    border-radius: @bdr ;
+    margin-bottom: 21px/@pixel;
+  }
+}

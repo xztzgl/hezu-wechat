@@ -1,0 +1,60 @@
+@import url("../../../config.less");
+.bg {
+  padding: 30px/@pixel 0;
+
+  background-color: @c-e9;
+  > div {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+.listChild {
+  display: flex;
+  height: 342px/@pixel;
+  padding: 48px/@pixel 0 48px/@pixel 0;
+  margin-bottom: 12px/@pixel;
+
+  background-color: @c-fff;
+  > div {
+    height: 246px/@pixel;
+    padding-left: 16px;
+
+    align-self: center;
+    .headimg {
+      width: 180px/@pixel;
+      height: 246px/@pixel;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    &:nth-child(2) {
+      flex: 1;
+      > div {
+        &:nth-child(1) {
+          height: @fz-54;
+
+          font-size: @fz-54;
+        }
+        &:nth-child(2) {
+          height: @fz-48;
+          margin: 14px 0;
+
+          font-size: @fz-48;
+        }
+        &:nth-child(3) {
+          height: @fz-48;
+
+          font-size: @fz-48;
+
+          color: #e60000;
+        }
+      }
+    }
+    &::nth-child(3) {
+      width: 22px;
+      padding-top: 30px;
+    }
+  }
+}

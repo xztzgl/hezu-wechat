@@ -1,0 +1,174 @@
+@import url("../../config.less");
+
+.listWrapper {
+  margin-top: 171px/@pixel;
+
+  background-color: @c-e9;
+}
+.card {
+  padding-top: 30px/@pixel;
+  > div {
+    border-top: 0;
+    > div {
+      padding: 0 48px/@pixel;
+      > div {
+        padding: 0 !important;
+      }
+    }
+  }
+  &:last-child {
+    padding-bottom: 60px/@pixel;
+  }
+}
+.header,
+.body,
+.footer {
+  display: flex;
+}
+.header {
+  height: 120px/@pixel;
+
+  font-size: @fz-48 !important;
+
+  border-bottom: 1px solid @c-line;
+
+  align-items: center;
+  justify-content: space-between;
+  .title {
+    margin: 0;
+
+    font-size: inherit;
+    line-height: 120px/@pixel;
+
+    color: @c-333;
+    &::after {
+      display: inline-block;
+      width: 15px/@pixel;
+      height: 27px/@pixel;
+      margin-left: 30px/@pixel;
+
+      content: "";
+
+      background: url(srcDir/images/more@3x.png) no-repeat center;
+      background-size: contain;
+    }
+  }
+  .status {
+    margin: 0;
+
+    line-height: 120px/@pixel;
+
+    color: @c-red;
+  }
+  .cancel {
+    color: @c-999;
+  }
+}
+.body {
+  position: relative;
+
+  padding-bottom: 48px/@pixel;
+  margin-top: 48px/@pixel;
+
+  font-size: 0;
+
+  border-bottom: 1px solid @c-line;
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    display: block;
+    width: 120px/@pixel;
+    height: 72px/@pixel;
+
+    font-size: @fz-36;
+    line-height: 72px/@pixel;
+
+    content: "个人";
+    text-align: center;
+
+    color: @c-dark;
+    background-color: @c-yellow;
+  }
+  .image {
+    width: 414/3/414*100vw;
+    height: 285/3/414*100vw;
+    margin-right: 48px/@pixel;
+  }
+  .content {
+    flex: 1;
+    .time,
+    .item,
+    .price {
+      display: flex;
+
+      font-size: @fz-48;
+      line-height: 1;
+
+      color: @c-333;
+
+      align-items: center;
+      justify-content: space-between;
+    }
+    .time {
+      margin-top: 12px/@pixel;
+    }
+    .item {
+      margin-top: 42px/@pixel;
+
+      font-size: @fz-36;
+
+      color: @c-666;
+    }
+    .price {
+      margin-top: 75px/@pixel;
+      .groupNumber {
+        font-size: @fz-48;
+
+        color: @c-666;
+      }
+    }
+  }
+}
+.flexEnd {
+  justify-content: flex-end !important;
+}
+.group {
+  padding-bottom: 48px/@pixel - 7px;
+
+  border-bottom: 0;
+  &::before {
+    content: "团体";
+
+    color: @c-fff;
+    background-color: @c-blue;
+  }
+}
+.footer {
+  height: 156px/@pixel;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  .button {
+    width: 270px/@pixel;
+    height: 96px/@pixel;
+
+    font-size: @fz-48;
+
+    white-space: nowrap;
+
+    color: @c-666;
+    border: 0;
+    background: url("srcDir/images/button_line_grey@3x.png") no-repeat center;
+    background-size: contain;
+  }
+  .buttonActive {
+    margin-left: 30px/@pixel;
+
+    color: @c-blueblack;
+    background-image: url("srcDir/images/button_line_blue@3x.png");
+  }
+}

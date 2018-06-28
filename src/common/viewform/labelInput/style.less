@@ -1,0 +1,70 @@
+@import url("../../../config.less");
+.inputBody{
+  // padding-top: 20px;
+  width: 100%;
+  font-weight: normal
+}
+ .inputCss{
+  //  display: flex;
+  display:table;
+  padding: 0 @fz-48;
+  height: 44px;
+  line-height: 44px;
+  width:100%;
+  label{
+    width: 95px;
+    border-radius: 10px 0 0 10px;
+    background-color: @c-yellow;
+    height: 44px;
+    font-size: @fz-48;
+    letter-spacing: 7px;
+    text-align: center;
+    padding-left: 8px;
+    font-weight: normal;
+    display: table-cell;
+    color:@c-dark;
+  }
+  .fourFont{
+    letter-spacing: 0;
+  }
+  input{
+    // flex: 1;
+    display: table-cell;
+    width: 100%;
+    border-radius: 0 10px 10px 0;
+    height: 44px;
+    // line-height: 44px;
+    border:0;
+    padding-left: 14px;
+    padding: 13px 0 13px 14px;
+  }
+  input::-webkit-input-placeholder {
+        /* placeholder颜色  */
+        color: @c-888;
+        /* placeholder字体大小  */
+        font-size: @fz-48;
+    }
+    input:-moz-placeholder{
+      color: @c-888;
+      font-size:@fz-48;
+    }
+    input::-moz-placeholder{
+      color: @c-888;
+      font-size:@fz-48;
+    }
+    input:-ms-input-placeholder{
+      color: @c-888;
+      font-size:@fz-48;
+    }
+}
+.prompt{
+  color: @c-red;
+  font-size:@fz-30; 
+  padding-left:124px;
+  height: 20px;
+  line-height: 20px;
+}
+.spanPos{
+  position: relative;
+  left:16px;
+}

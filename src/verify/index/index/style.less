@@ -1,0 +1,30 @@
+@import url("../../../config.less");
+.bg{
+  background-color: @c-e9;
+  margin-bottom:67px;
+  padding-top: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.buttonCenter{
+  span{
+    text-align:center;
+    &:first-child{
+      padding: 0 !important;
+      // width: 0 !important;
+      flex: 0 !important;
+    }
+    &:nth-child(2){
+      flex: 1;
+    }
+  }
+  button{
+    width: 827px/@pixel !important;
+    background-image: none !important;
+    background-color: @c-blue !important;
+    box-shadow: 0 0 2px rgba(0,0,0, .5);
+    letter-spacing: 3px;
+  }
+}

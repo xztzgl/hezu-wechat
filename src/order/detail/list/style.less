@@ -1,0 +1,36 @@
+@import url("../../../config.less");
+.tableList{
+  >div{
+    display: flex;
+    margin: 0 3.8647342%;
+    font-size: @fz-48;
+    color: @c-666;
+    position: relative;
+    &::after{
+      -webkit-transform: scaleY(0.2);
+      transform: scaleY(0.2);
+      border-top: 1px solid @c-line;
+      content: ' ';
+      display: block;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+    >div{
+      padding: 22px 0;
+      &:nth-child(1){
+        flex: 3;
+      }
+      &:nth-child(2){
+        flex: 5;
+        text-align: center;
+      }
+      &:nth-child(3){
+        flex: 2;
+        text-align: right;
+        color: #e60000;
+      }
+    }
+  }
+}

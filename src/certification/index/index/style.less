@@ -1,0 +1,100 @@
+@import url("../../../config.less");
+// .bg{
+//   background-color:@c-e9;
+//   padding-top: 30px/@pixel;
+//   position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   width: 100%; 
+// }
+// .avatar {
+//   height: 256px/@pixel;
+//   display: flex;
+//   background-color: @c-fff;
+//   margin-bottom: 30px/@pixel;
+//   div{
+//     align-self: center;
+//     &:first-child{
+//       flex: 1;
+//       // background-color: rosybrown;
+//       // margin-right: 10px;
+//       font-size: @fz-48;
+//       color: @c-333;
+//       padding-left: 30px/@pixel;
+//     }
+//     &:nth-child(2){
+//       border-radius:100%;
+//       background-color: greenyellow;
+//       margin-right: 4px;
+//       width: 150px/@pixel;
+//       height: 150px/@pixel;
+//       img{
+//         width: 150px/@pixel;
+//         border-radius: 100%;
+//       }
+//     }
+//     &:nth-child(3){
+//       width: 28px;
+//       padding-top:7px;
+//     }
+//   }
+// }
+// .person{
+//   height: 171px/@pixel;
+//   background-color: @c-fff;
+//   display: flex;
+//   margin-bottom: 12px/@pixel;
+//   div{
+//     align-self: center;
+//     font-size: @fz-48;
+
+//     &:nth-child(1){
+//       width: 100px;
+//       color: @c-333;
+//       padding-left: 30px/@pixel;
+//     }
+//     &:nth-child(2){
+//       flex: 1;
+//       color: @c-666;
+//       text-align: right;
+//       padding-right: 21px;
+//     }
+//   }
+// }
+.certificate{
+  background-image: url(srcDir/images/none_order@3x.png)!important;
+}
+.noMore{
+  display: flex;
+  margin-top: 90px/@pixel;
+  >div{
+    align-self: center;
+    // flex: 1;
+    height: @fz-36;
+    position: relative;
+    &:nth-child(1),&:nth-child(3){
+      flex: 1;
+    }
+    &:nth-child(1)::after,&:nth-child(3)::after{
+      transform: scaleY(0.2);
+      border-top: 1px solid @c-line;
+      content: ' ';
+      width: 300px/@pixel;
+      display: block;
+      position: absolute;
+      right: 0;
+      transform: translateY(-50%);
+      top: 50%;
+    }
+    &:nth-child(3)::after{
+      left: 0;
+    }
+    &:nth-child(2){
+      padding: 0 45px/@pixel;
+      font-size: @fz-36;
+      color: @c-999;
+      line-height: @fz-36;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import url("../../../config.less");
+.buttonBody{
+  padding-bottom: 20px;
+  width: 100%;
+}
+ .buttonCss{
+  display:flex;
+  margin: 0 3.8647342%;
+  height: 44px;
+  line-height: 44px;
+  label{
+    width: 95px;
+    border-radius: 10px;
+    background-color: @c-yellow;
+    height: 44px;
+    font-size: @fz-48;
+    //letter-spacing: 7px;
+    //text-align: center;
+    //padding-left: 8px;
+    font-weight: normal;
+    span{
+      letter-spacing: 31px;
+      position: relative;
+      left: 16px;
+    }
+  }
+  div{
+    flex: 1;
+    // border-radius: 0 10px 10px 0;
+    // height: 44px;
+    // line-height: 44px;
+    border:0;
+    // padding:0 12px;
+    // text-align: center;
+    div{
+      display: table;
+      width: 100%;
+      span{
+        display: table-cell;
+        text-align: center;
+      }
+    }
+    button{
+      width: 66.2%;
+      line-height: 44px;
+      border-radius: 10px;
+      padding: 0;
+      border: 0;
+      color: @c-888; 
+      background-color: @c-fff;
+      box-shadow: 0 1px 2px rgba(0,0,0, 0.3);
+      // margin: 0 7px;
+    }
+  }  
+}
+:global button.sex{
+  background-color: #070b79 !important;
+  color: @c-fff !important;
+}

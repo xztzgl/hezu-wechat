@@ -1,0 +1,17 @@
+{
+  "name": "dachengqixiu",
+  "short_name": "DCQX",
+  "description": "the manifest of dachengqixiu",
+  "start_url": "/",
+  "background-color": "#ace",
+  "theme_color": "#ace",
+  "orientation": "any",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./images/logo.png",
+      "sizes": "72*72",
+      "type": "image/png"
+    }
+  ]
+}

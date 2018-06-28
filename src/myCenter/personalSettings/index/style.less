@@ -1,0 +1,64 @@
+@import url("../../../config.less");
+.bg{
+  background-color:@c-e9;
+  padding-top: 30px/@pixel;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%; 
+}
+.avatar {
+  height: 256px/@pixel;
+  display: flex;
+  background-color: @c-fff;
+  margin-bottom: 30px/@pixel;
+  div{
+    align-self: center;
+    &:first-child{
+      flex: 1;
+      // background-color: rosybrown;
+      // margin-right: 10px;
+      font-size: @fz-48;
+      color: @c-333;
+      padding-left: 30px/@pixel;
+    }
+    &:nth-child(2){
+      border-radius:100%;
+      // background-color: greenyellow;
+      margin-right: 4px;
+      width: 150px/@pixel;
+      height: 150px/@pixel;
+      img{
+        width: 150px/@pixel;
+        height: 150px/@pixel;
+        border-radius: 100%;
+      }
+    }
+    &:nth-child(3){
+      width: 28px;
+      padding-top:7px;
+    }
+  }
+}
+.person{
+  height: 171px/@pixel;
+  background-color: @c-fff;
+  display: flex;
+  margin-bottom: 12px/@pixel;
+  div{
+    align-self: center;
+    font-size: @fz-48;
+
+    &:nth-child(1){
+      width: 100px;
+      color: @c-333;
+      padding-left: 30px/@pixel;
+    }
+    &:nth-child(2){
+      flex: 1;
+      color: @c-666;
+      text-align: right;
+      padding-right: 21px;
+    }
+  }
+}

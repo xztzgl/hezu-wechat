@@ -1,0 +1,75 @@
+@import url("../../../config.less");
+.bg{
+  background-color: @c-e9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 67px;
+  width: 100%;
+  padding-top: 16px;
+}
+.phoneAppointment{
+  background-color: @c-fff;
+  height: 540px/@pixel;
+  // margin-bottom: 216px/@pixel;
+  width: 100%;
+}
+.phone{
+  width:324px/@pixel;
+  margin: auto;
+  // height: 238px/@pixel;
+  // border: 1px solid red;
+  text-align: center;
+  padding-top:40px; 
+  a{
+    display: block;
+    line-height: 0;
+    text-decoration:none;
+    outline: none!important;
+    &:nth-child(1){
+      width: 146px/@pixel;
+      height: 146px/@pixel;
+      border-radius: 50%;
+      background-image: url(srcDir/images/servicecenter@3x.png);
+      background-position: center;
+      background-size: contain;
+      margin: auto;
+    }
+    &:nth-child(3){
+      font-size: @fz-42;
+      color: @c-333;
+      line-height: @fz-42;
+    }
+  }
+  p{
+    margin-top: 20px;
+    font-size: @fz-48;
+    color: @c-666;
+    line-height: @fz-48;
+  }
+}
+
+.buttonCenter{
+  span{
+    text-align:center;
+    &:first-child{
+      padding: 0 !important;
+      // width: 0 !important;
+      flex: 0 !important;
+    }
+    &:nth-child(2){
+      flex: 1;
+    }
+  }
+  button{
+    width: 827px/@pixel !important;
+    background-image: none !important;
+    background-color: @c-blue !important;
+    box-shadow: 0 0 2px rgba(0,0,0, .5);
+    letter-spacing: 3px;
+  }
+}
+.telephone{
+  display: flex;
+  align-items:flex-end;
+}

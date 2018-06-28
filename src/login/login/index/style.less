@@ -1,0 +1,79 @@
+@import url("../../../config.less");
+.login {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: @c-eee;
+}
+
+.loginBody {
+    background-color: @c-fff;
+    margin: 110px/@pixel 40px/@pixel;
+    border-radius: 4px;
+    input{
+        border: 1px solid #ccc;
+        border-left: 0;
+    }
+    padding-bottom: 40px;
+}
+.loginTab{
+    position: relative;
+    height: 44px;
+    // border-bottom: 1px solid @c-yellow;
+    // margin-bottom: 110px/@pixel
+}
+.loginTabLeft, .loginTabRight {
+    position: absolute;
+    display: flex;
+    background-image: url(srcDir/images/touchbar.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 44px;
+    top:0;
+    left: 0;
+    width: 100%;
+    background-position: -25px;
+}
+.loginTabRight {
+    transform: rotateY(180deg);
+    left: 1px;
+}
+.loginTabTitle{
+    display: flex;
+    // align-items:center;
+    position: absolute;
+    width: 100%;
+    div {
+        height: 44px;
+        flex: 1;
+        text-align: center;
+        line-height: 44px;
+    }
+}
+.loginButton {
+    padding: 0 3.8647342%;
+    margin-top: 60px/@pixel;
+    button {
+        width: 100%;
+        background-color: @c-blue;
+        border: 0;
+        height: 44px;
+        border-radius: @bdr;
+        color: @c-fff;
+        font-size: @fz-54;
+    }
+}
+
+.loginicon {
+    height: 408px/@pixel;
+    background-image: url(srcDir/images/loginicon.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16%;
+}
+.registered{
+    padding: 0 3.8647342%;
+    text-align: right;
+    height: 44px;
+    line-height: 44px;
+}

@@ -1,0 +1,51 @@
+@import url("../../../config.less");
+.Pay {
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+
+  background-color: @c-2f;
+  div {
+    display: flex;
+    height: 67px;
+    // padding: 16px 0;
+    > span {
+      display: inline-block;
+      height: 145px/@pixel;
+
+      line-height: 145px/@pixel;
+
+      align-self: center;
+      &:first-child {
+        padding-left: @fz-48;
+
+        color: @c-blue;
+
+        flex: 1;
+      }
+      &:nth-child(2) {
+        width: 137px;
+        // height: 44px;
+
+        text-align: center;
+        button {
+          width: 327px/@pixel;
+          height: 145px/@pixel;
+          padding: 0;
+          // margin-top: 3px;
+
+          font-size: 50px/@pixel;
+
+          color: @c-fff;
+          border: 0;
+          border-radius: @bdr;
+          background-color: rgba(0,0,0,0);
+          background-image: url(srcDir/images/button_s_black@3x.png);
+          background-position: center;
+          background-size: cover;
+        }
+      }
+    }
+  }
+}

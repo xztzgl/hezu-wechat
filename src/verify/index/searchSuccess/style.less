@@ -1,0 +1,171 @@
+@import url("../../../config.less");
+@percent: 1242/100vw;
+.result {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+
+  width: 100vw;
+  height: 1755/@percent;
+  overflow-x: hidden;
+
+  background: url(srcDir/images/certificate@3x.png) no-repeat center;
+  background-size: contain;
+  h3 {
+    display: none;
+  }
+  div {
+    position: absolute;
+
+    font-size: @fz-32;
+
+    color: @c-999;
+  }
+  ul,
+  li {
+    position: relative;
+
+    list-style: none;
+  }
+  canvas {
+    position: absolute;
+    top: 159/@percent;
+    right: 242/@percent;
+
+    width: 120/@percent !important;
+    height: 120/@percent !important;
+  }
+  .avatar {
+    top: 375/@percent;
+    right: 132/@percent;
+
+    width: 158/@percent;
+    height: 213/@percent;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .meSn {
+    top: 350/@percent;
+    left: 348/@percent;
+  }
+  .name {
+    top: 425/@percent;
+    left: 348/@percent;
+  }
+  .gender {
+    top: 425/@percent;
+    left: 755/@percent;
+  }
+  .cardid {
+    top: 494/@percent;
+    left: 348/@percent;
+  }
+  .meDate {
+    top: 570/@percent;
+    left: 348/@percent;
+  }
+  .resultCode {
+    top: 1423/@percent;
+    left: 448/@percent;
+
+    @media (min-width: 320px) and (max-width: 374px) {
+      top: 1413/@percent;
+      left: 432/@percent;
+    }
+    @media (min-width: 360px) and (max-width: 374px) {
+      top: 1413/@percent;
+      left: 435/@percent;
+    }
+    @media (min-width: 375px) and (max-width: 413px) {
+      top: 1413/@percent;
+      left: 442/@percent;
+    }
+  }
+  .meOrg {
+    top: 1480/@percent;
+    right: 84/@percent;
+  }
+  .signature {
+    top: 1480/@percent;
+    left: 348/@percent;
+
+    width: 50px;
+    height: 50px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  ul {
+    top: 835/@percent;
+    left: 328/@percent;
+    @media (min-width: 320px) and (max-width: 375px) {
+      left: 278/@percent;
+    }
+    @media (min-width: 360px) and (max-width: 375px) {
+      left: 298/@percent;
+    }
+    @media (min-width: 375px) and (max-width: 413px) {
+      left: 310/@percent;
+    }
+  }
+  .yes,
+  .no {
+    height: 4.65vw;
+
+    line-height: 1;
+
+    > span:first-child {
+      display: inline-block;
+      margin-right: -8.5vw;
+      margin-left: 8.5vw;
+
+      font-size: @fz-32;
+
+      vertical-align: middle;
+
+      color: @c-999;
+    }
+    .remark {
+      margin-left: 13.5vw;
+
+      font-size: @fz-32;
+
+      vertical-align: middle;
+
+      color: @c-999;
+    }
+  }
+  .no {
+    > span:first-child {
+      margin: 0;
+    }
+  }
+}
+
+.buttonCenter {
+  span {
+    text-align: center;
+    &:first-child {
+      padding: 0 !important;
+      // width: 0 !important;
+
+      flex: 0 !important;
+    }
+    &:nth-child(2) {
+      flex: 1;
+    }
+  }
+  button {
+    width: 827px/@pixel !important;
+
+    letter-spacing: 3px;
+
+    background-color: @c-blue !important;
+    background-image: none !important;
+    box-shadow: 0 0 2px rgba(0,0,0, .5);
+  }
+}

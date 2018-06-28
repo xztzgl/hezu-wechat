@@ -1,0 +1,92 @@
+/**
+ * the less config of this project
+ */
+
+// font-family 微软雅黑／黑体-简
+@ff: "Microsoft YaHei, Heiti SC (STHeiti)";
+@ff-main: "Microsoft YaHei";
+@ff-second: "Heiti SC (STHeiti)";
+@pixel: 3;
+// font-size
+@fz-105 : 105px/@pixel ;
+@fz-100 : 100px/@pixel ;
+@fz-60 : 60px/@pixel ;
+@fz-54 : 54px/@pixel ;
+@fz-48 : 48px/@pixel ;
+@fz-42 : 42px/@pixel ;
+@fz-36 : 36px/@pixel ;
+@fz-32 : 32px/@pixel ;
+@fz-30 : 30px/@pixel ;
+// border-radius
+@bdr: 30px/@pixel ;
+// color
+// background
+@c-fff: #fff;
+// fontColor
+@c-000: #000;
+@c-333: #333;
+@c-666: #666;
+@c-999: #999;
+@c-888: #888;
+@c-e9: #e9e9e9;
+@c-eee: #eee;
+@c-yellow: #ffc720;
+@c-blue: #4175ff;
+@c-blueblack: #060a79;
+@c-red: #c20303;
+@c-c3: #c3c3c3;
+@c-dark: #000068;
+@c-2f: #2f2f2f;
+// line-color
+@c-line-on-yellow: #caa023;
+@c-line: #c3c3c3;
+// shadow-color
+@c-shadow: #c0c0c0;
+.tr {
+  text-align: right;
+}
+
+.text-overflow {
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+}
+
+.text-overflow-mui (@lines) {
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: @lines  !important;
+}
+
+.WSnormal {
+  white-space: normal;
+}
+
+// 评价星星
+:global .anticon-star:before {
+  content: "\E660";
+}
+
+:global .ant-rate-star-zero:before,
+:global .anticon-star:before {
+  font-family: anticon !important;
+  @font-face {
+    font-family: "anticon";
+    src: url("./fonts/font_zck90zmlh7hf47vi.woff") format("woff");
+    /* chrome、firefox */
+  }
+}
+
+// 修改列表间隔横线
+:global .am-list-body:after,
+:global .am-list-body div:not(:last-child) .am-list-line:after {
+  border-top: 1px solid #eee;
+  border-bottom: 0;
+}
+
+// 修改步骤条标题
+:global .am-steps.am-steps-small .am-steps-title {
+  font-weight: normal;
+}

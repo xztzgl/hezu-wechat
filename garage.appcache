@@ -1,0 +1,22 @@
+CACHE MANIFEST
+# 2017-05-02 v1.0.0
+
+CACHE:
+/dll/dll.js
+/dll/dll.css
+/commons/commons/bundle.js
+/static/fonts/iconfont.eot
+/static/fonts/iconfont.svg
+/static/fonts/iconfont.ttf
+/static/fonts/iconfont.woff
+/static/js/html5shiv.min.js
+/static/js/promise.min.js
+/static/js/respond.min.js
+/static/js/xdomain.all.js
+/index/index/page.html
+index.html
+
+NETWORK:
+*
+
+FALLBACK:

@@ -1,0 +1,52 @@
+@import url("../../../config.less");
+
+/**
+ * 筛选项
+ */
+.default {
+  height: 108px/@pixel;
+
+  font-size: @fz-42;
+  line-height: 108px/@pixel - 4px;
+
+  color: @c-dark;
+  border-color: @c-yellow;
+  border-radius: @bdr;
+  background-color: @c-yellow !important;
+  box-shadow: 0 6px/3 6px 0 @c-shadow;
+
+  &:nth-of-type(2) {
+    margin-left: 36px/@pixel;
+  }
+  span {
+    vertical-align: middle;
+  }
+  svg {
+    margin-top: -3px;
+    margin-right: 0 !important;
+  }
+}
+
+/**
+ * 弹出页
+ */
+.popover {
+  left: 0 !important;
+
+  width: 100%;
+  > div > div {
+    // 小三角
+    &:first-child {
+      display: none;
+    }
+    // item wrapper
+    &:nth-of-type(2) {
+      border-radius: 0;
+    }
+  }
+}
+// 小三角
+.arrow {
+  bottom: -3px;
+  z-index: 1999;
+}

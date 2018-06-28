@@ -1,0 +1,44 @@
+@import url("../../config.less");
+
+:global .am-tabs-tab {
+  height: 171px/@pixel !important;
+
+  line-height: 171px/@pixel !important;
+
+  white-space: nowrap !important;
+}
+:global .am-tabs-bar .am-tabs-tab-active {
+  color: @c-333 !important;
+}
+// :global .am-tabs-ink-bar {
+//   left: 16.6%;
+
+//   width: 192px/@pixel !important;
+//   height: 12px/@pixel !important;
+// }
+
+.tabTitle {
+  > div:first-child {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 200;
+    > div {
+      font-size: @fz-48;
+
+      color: @c-999;
+      &:nth-child(1){
+        left: 16.6%;
+        background-color: @c-yellow;
+        width: 192px/@pixel !important;
+        height: 12px/@pixel !important;
+        // left:25%;
+        // background-color: red;
+        height: 3px;
+        border-radius:3px;
+        margin-left: -50px; 
+      }
+    }
+  }
+}

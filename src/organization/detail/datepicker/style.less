@@ -1,0 +1,93 @@
+@import url("../../../config.less");
+
+.datepicker {
+  padding: 60px/@pixel 48px/@pixel;
+  margin-bottom: 67px;
+
+  background-color: @c-e9;
+}
+.carousel {
+  padding-bottom: 15px/@pixel;
+  overflow: hidden;
+
+  border-radius: 30px/@pixel;
+  background-color: @c-fff;
+}
+
+.flex {
+  div {
+    text-align: center;
+  }
+}
+.month,
+.week {
+  color: @c-dark;
+  background-color: @c-yellow;
+}
+.week,
+.day {
+  padding: 0 30px/@pixel;
+}
+.month {
+  padding: 30px/@pixel 0 24px/@pixel 0;
+
+  border-bottom: 1px solid @c-line-on-yellow;
+  border-radius: 10px 10px 0 0;
+}
+.week {
+  padding-top: 42px/@pixel;
+  padding-bottom: 42px/@pixel;
+}
+.day {
+  height: (115px+60px)/@pixel;
+  > div {
+    width: 115px/@pixel;
+    height: 115px/@pixel;
+
+    line-height: 115px/@pixel;
+
+    color: @c-333;
+    &.passed {
+      color: @c-999 !important;
+      background: transparent !important;
+    }
+    &.checked {
+      color: @c-fff;
+      background: url(srcDir/images/mark_round@3x.png) no-repeat center;
+      background-size: contain;
+    }
+  }
+}
+.time {
+  padding: 30px/@pixel 25px;
+  margin: 0 39px/@pixel/2;
+
+  color: @c-333;
+  border-radius: 50px;
+  &:nth-of-type(4) {
+    margin-top: 12px/@pixel;
+  }
+  &:last-child {
+    margin-bottom: 45px/@pixel;
+  }
+  &.passed {
+    color: @c-999 !important;
+    background: transparent !important;
+  }
+  &.checked {
+    color: @c-fff;
+    background: url(srcDir/images/mark_long@3x.png) center no-repeat;
+    background-size: cover;
+  }
+  > div {
+    &:first-child {
+      text-align: left;
+    }
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
+.red {
+  color: @c-red;
+}

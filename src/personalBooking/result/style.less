@@ -1,0 +1,150 @@
+@import url("../../config.less");
+
+.fail {
+  text-align: center;
+  .content {
+    padding-top: 150px/@pixel;
+    margin: 0;
+
+    font-size: @fz-36;
+
+    color: @c-666;
+  }
+  .time {
+    display: block;
+    margin-top: 60px/@pixel;
+
+    font-size: @fz-105;
+    line-height: 1;
+
+    color: @c-333;
+  }
+  .section {
+    &::before {
+      display: block;
+      width: 146px/@pixel;
+      height: 146px/@pixel;
+      margin: 300px/@pixel auto auto;
+
+      content: "";
+
+      background: url(srcDir/images/fail@3x.png) no-repeat center;
+      background-size: contain;
+    }
+    .title {
+      margin-top: 30px/@pixel;
+
+      font-size: @fz-48;
+
+      color: @c-333;
+    }
+    .remark {
+      margin-top: 60px/@pixel;
+
+      font-size: @fz-36;
+
+      color: @c-666;
+    }
+  }
+
+
+
+  .button {
+    button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      width: 839px/@pixel !important;
+      height: 145px/@pixel !important;
+
+      font-size: @fz-54 !important;
+      font-weight: normal;
+
+      transform: translate(-50%, -50%);
+      letter-spacing: 3px;
+
+      color: @c-fff !important;
+      background-image: url(srcDir/images/button_b@3x.png) !important;
+    }
+  }
+}
+.success {
+  text-align: center;
+  .section {
+    &::before {
+      display: block;
+      width: 146px/@pixel;
+      height: 146px/@pixel;
+      margin: 150px/@pixel auto auto;
+
+      content: "";
+
+      background: url(srcDir/images/success@3x.png) no-repeat center;
+      background-size: contain;
+    }
+    .title {
+      margin-top: 60px/@pixel;
+
+      font-size: @fz-48;
+
+      color: @c-333;
+    }
+  }
+  .record {
+    margin: auto 240px/@pixel;
+    .content {
+      display: block;
+      margin-bottom: 90px/@pixel;
+
+      font-size: @fz-48;
+
+      text-align: left;
+
+      color: @c-333;
+      &:first-child {
+        display: flex;
+        margin: 360px/@pixel auto 45px/@pixel auto;
+
+        justify-content: space-between;
+      }
+    }
+    .remark {
+      font-size: @fz-48;
+      line-height: 78px/@pixel;
+
+      text-align: left;
+
+      color: @c-666;
+    }
+  }
+
+
+
+  .button {
+    > div {
+      position: relative;
+      > span:last-child {
+        display: flex;
+        height: 145px/3;
+
+        justify-content: flex-end;
+      }
+    }
+    button {
+      padding: 9px/@pixel 60px/@pixel !important;
+      margin-right: 30px/@pixel;
+
+      font-size: @fz-54 !important;
+      font-weight: normal;
+
+      white-space: nowrap;
+
+      color: @c-fff !important;
+      background-repeat: no-repeat;
+      &:first-child {
+        background-image: url(srcDir/images/button_s_grey@3x.png) !important;
+      }
+    }
+  }
+}

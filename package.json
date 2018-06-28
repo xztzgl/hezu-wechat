@@ -1,0 +1,24 @@
+{
+  "name": "example-admin-2-single-page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node npm-scripts/build.script.js && webpack -p --progress --colors --bail --config ./webpack.product.config.js",
+    "dev": "node npm-scripts/build.script.js && webpack --progress --colors --config ./webpack.dev.config.js",
+    "watch": "node npm-scripts/build.script.js && webpack --progress --colors --watch --config ./webpack.dev.config.js",
+    "start": "node app",
+    "profile": "node npm-scripts/build.script.js && webpack --colors --profile --display-modules"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^2.9.0",
+    "eslint-config-airbnb": "^9.0.0",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-import": "^1.7.0",
+    "eslint-plugin-jsx-a11y": "^1.2.0",
+    "eslint-plugin-react": "^5.2.2"
+  }
+}

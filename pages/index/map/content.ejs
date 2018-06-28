@@ -1,0 +1,230 @@
+<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=291cb0e3e0afbc7dfa10c3da10059ea0"></script>
+<style type="text/css">
+    /* #container {} */
+    #tip {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        box-shadow: 0 0 3px 1px #ececec;
+    }
+     .info {
+            border: solid 1px silver;
+        }
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+        div.info-middle {
+            font-size: 12px;
+            padding: 6px;
+            line-height: 20px;
+        }
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+            width: 108px;
+            height: 68px;
+        }
+</style>
+<div id="container"></div>
+<!--
+<div id="tip">
+    <input type="text" id="keyword" name="keyword" placeholder="正在定位，请稍后......" />
+</div>
+-->
+
+<script type="text/javascript">
+/* eslint-disable */
+/***************************************
+由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
+***************************************/
+    var map, geolocation;
+    //加载地图，调用浏览器定位服务
+    map = new AMap.Map("container", {
+        resizeEnable: true,
+        zoom: 9,
+    });
+    map.plugin(["AMap.Geolocation"], function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            // zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:"LB",
+            showCircle: true,
+        });
+        // geolocation.getCurrentPosition();
+        map.addControl(geolocation);
+        AMap.event.addListener(geolocation, "complete", onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, "error", onError);      //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+
+        var str = ["定位成功"];
+        str.push("地址：" + data.formattedAddress);
+        // str.push("纬度：" + data.position.getLat());
+        // str.push("经度：" + data.position.getLng());
+        var latitude = data.position.getLat();
+        var longitude = data.position.getLng();
+        var accuracy = data.accuracy;
+        if (data.accuracy) {
+          str.push("精度：" + data.accuracy + " 米");
+        } // 如为IP精确定位结果则没有精度信息
+        // str.push("是否经过偏移：" + (data.isConverted ? "是" : "否"));
+        str.push("<button style=\"line-height:3; font-size:16px; border-radius:3px; border:0; background-color:#29a1f7; color:#fff; margin:auto auto 10px; display: block; width:100px;\">返回</button>");
+        // document.getElementById("tip").innerHTML = str.join("<br>");
+        // console.log(str);
+        var oldLocation = JSON.parse(window.parent.Cookies.get("location"));
+        // console.log("原来的位置");
+        // alert(JSON.stringify(oldLocation));
+        var location = {
+          latitude,
+          longitude,
+          accuracy
+        };
+        var newLocation = Object.assign(oldLocation, location);
+        // console.log("原来的位置");
+        // alert(JSON.stringify(newLocation));
+        window.parent.Cookies.set("location", JSON.stringify(newLocation));
+        window.parent.Cookies.set("locationAddress", data.formattedAddress);
+        // alert(window.parent.Cookies.get("locationAddress"));
+        document.getElementById("tip").onclick = function () {
+            // console.log(window.parent);
+            window.parent.$("#js-map").hide();
+            window.parent.$("#js-locationAddress").text(data.formattedAddress);
+            // window.parent.reactHistory.push("/applyRescue");
+        };
+    }
+    //解析定位错误信息
+    function onError(data) {
+        // document.getElementById("tip").innerHTML = "定位失败";
+        // setTimeout(function () {
+        //     window.parent.$("#js-map").hide();
+        // }, 2000)
+    }
+    /**
+     * 创建标记点和自定义说明框
+     * @param  {[arr]} options.position [位置]
+     * @param  {[string]} options.title    [标题，可带html标签]
+     * @param  {[arr]} options.content  [内容数据]
+     * @return null
+     */
+    // 数据示例
+    // var data = [{
+    //   position: [116.205467, 39.907761],
+    //   title: "aaa",
+    //   content: [
+    //     "<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：北京市朝阳区阜通东大街6号院aaa号楼东北8.3公里",
+    //     ""
+    //   ]
+    // }, {
+    //   position: [116.368904, 39.913423],
+    //   title: "bbb",
+    //   content: [
+    //     "<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：北京市朝阳区阜通东大街6号院bbb号楼东北8.3公里",
+    //     ""
+    //   ]
+    // }];
+    function makeMarker(data) {
+      data.forEach(function (v) {
+        var marker = new AMap.Marker({
+          // icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+          position: v.position,
+          zoom: 9,
+        });
+        marker.setMap(map);
+        //鼠标点击m0rker弹出自定义的信息窗体
+        AMap.event.addListener(marker, 'click', function() {
+          infoWindow.open(map, marker.getPosition());
+        });
+        //实例化信息窗体
+
+        var infoWindow = new AMap.InfoWindow({
+          isCustom: true,  //使用自定义窗体
+          content: createInfoWindow(v.title, v.content.join("<br/>")),
+          offset: new AMap.Pixel(16, -45)
+        });
+      });
+
+      //构建自定义信息窗体
+      function createInfoWindow(title, content) {
+          var info = document.createElement("div");
+          info.className = "info";
+
+          //可以通过下面的方式修改自定义窗体的宽高
+          //info.style.width = "400px";
+          // 定义顶部标题
+          var top = document.createElement("div");
+          var titleD = document.createElement("div");
+          var closeX = document.createElement("img");
+          top.className = "info-top";
+          titleD.innerHTML = title;
+          closeX.src = "http://webapi.amap.com/images/close2.gif";
+          closeX.onclick = closeInfoWindow;
+
+          top.appendChild(titleD);
+          top.appendChild(closeX);
+          info.appendChild(top);
+
+        // 定义中部内容
+        var middle = document.createElement("div");
+        middle.className = "info-middle";
+        middle.style.backgroundColor = 'white';
+        middle.innerHTML = content;
+        info.appendChild(middle);
+
+        // 定义底部内容
+        var bottom = document.createElement("div");
+        bottom.className = "info-bottom";
+        bottom.style.position = 'relative';
+        bottom.style.top = '0px';
+        bottom.style.margin = '0 auto';
+        var sharp = document.createElement("img");
+        sharp.src = "http://webapi.amap.com/images/sharp.png";
+        bottom.appendChild(sharp);
+        info.appendChild(bottom);
+        return info;
+      }
+
+      //关闭信息窗体
+      function closeInfoWindow() {
+        map.clearInfoWindow();
+      }
+    }
+
+</script>
