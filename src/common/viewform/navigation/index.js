@@ -32,7 +32,7 @@ class View extends React.Component {
     if (e === 1) {
       history.push("/homepage");
     } else if (e === 2) {
-      history.push("/release");
+      history.push("/release/");
     } else if (e === 3) {
       history.push("/registration");
     }

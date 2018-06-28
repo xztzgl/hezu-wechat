@@ -104,7 +104,7 @@ class View extends React.Component {
             // store.set("userType", JSON.parse(res.entity).obj.userType);
             // const url = store.session.get("page");
             const origin = window.location.origin;
-            window.location.href = `${origin}/homepage`;
+            window.location.href = `${origin}`;
             // if (url && url !== "") {
             //   Toast.success(data.msg, 2, () => {
             //     // history.push("homepage/");
