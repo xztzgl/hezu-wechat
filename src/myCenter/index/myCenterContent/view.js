@@ -2,11 +2,11 @@ import React from "react";
 import { Icon } from "antd-mobile";
 import history from "srcDir/common/router/history";
 import styles from "./style.less";
-import store from "store2";
-import fetch from "srcDir/common/ajax/index";
+// import store from "store2";
+import fetch from "srcDir/common/ajax/indexWithBody";
 // 创建react组件
 const imgHeader = require("srcDir/images/my_m@3x.png");
-const userType = store.get("userType");
+// const userType = store.get("userType");
 class View extends React.Component {
   constructor(props) {
     super(props);
@@ -20,18 +20,23 @@ class View extends React.Component {
     // console.log(this.props.prompt, 888);
     // /wx/user/selfPage
     const _this = this;
-    let url;
-    let method;
-    if (userType === "U_001_03") {
-      url = "/wx/enterprise/info/view";
-      method = "GET";
-    } else {
-      url = "/wx/user/selfPage";
-      method = "POST";
-    }
+    // let url;
+    // let method;
+    // if (userType === "U_001_03") {
+    //   url = "/wx/enterprise/info/view";
+    //   method = "GET";
+    // } else {
+    //   url = "/wx/user/selfPage";
+    //   method = "POST";
+    // }
+    const url = "/wechat-my/customer";
+    const method = "POST";
     fetch({
       url: url,
       method: method,
+      entity: {
+        customer_id: "18"
+      },
       // params: {
       //   phoneNumber: phonelength,
       // },
@@ -47,14 +52,14 @@ class View extends React.Component {
   // login() {
   //   history.push("/login");
   // }
-  personalSettings(data) { // personalSettings 个人设置
-    if (userType === "U_001_03") {
-      history.push("/registration");
-    } else {
-      store.set("person", data);
-      history.push("/myCenter/personalSettings");
-    }
-  }
+  // personalSettings(data) { // personalSettings 个人设置
+  //   if (userType === "U_001_03") {
+  //     history.push("/registration");
+  //   } else {
+  //     store.set("person", data);
+  //     history.push("/myCenter/personalSettings");
+  //   }
+  // }
   showOrderList(defaultKey) {
     history.push("/orderList/", {
       defaultKey,
@@ -83,17 +88,23 @@ class View extends React.Component {
             </div>
           </div>
           <div>
-            <div onTouchEnd={() => { this.personalSettings(this.state.data); }}>
+            <div>
               <span>
                 <span>{this.state.data && this.state.data.name}</span>
                 <span>{this.state.data && this.state.data.mobile}</span>
               </span>
+              {
+                /*
               <span><Icon type="right" /></span>
+                 */
+              }
             </div>
           </div>
         </div>
         {/* 头部*/}
 
+        {
+          /*
         <div className={styles.navCenter}>
           <ul>
             <li onClick={() => this.showOrderList("2")} role="presentation">
@@ -105,6 +116,8 @@ class View extends React.Component {
             <li onClick={() => this.showOrderList("1")} role="presentation">全部订单</li>
           </ul>
         </div>
+           */
+        }
         {/* 导航部分*/}
 
         <div className={styles.documentsAndCustomerService}>

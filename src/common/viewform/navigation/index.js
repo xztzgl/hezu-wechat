@@ -34,7 +34,7 @@ class View extends React.Component {
     } else if (e === 2) {
       history.push("/release/");
     } else if (e === 3) {
-      history.push("/registration");
+      history.push("/myCenter");
     }
   }
   render() {

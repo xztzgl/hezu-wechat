@@ -48,7 +48,7 @@ history.listen((location) => {
   console.log(location.pathname);
   window.$("#js-map").hide(500);
   // console.log(pathname);
-  const Authorization = store.get("Authentication");
+  const Authorization = store.get("Authorization");
   let condition = false;
   if (pathname.filter(v => location.pathname === v).length === 0) {
     if (!Authorization) {
