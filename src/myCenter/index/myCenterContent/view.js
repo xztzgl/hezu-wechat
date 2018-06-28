@@ -120,7 +120,7 @@ class View extends React.Component {
         {/* 导航部分*/}
 
         <div className={styles.documentsAndCustomerService}>
-          <div onTouchEnd={() => { this.showOrderList("2"); }}>
+          <div onTouchEnd={() => { this.showOrderList("1"); }}>
             <span className={styles.healthCertificate}><i>我的订单</i></span>
             <span><Icon type="right" /></span>
           </div>

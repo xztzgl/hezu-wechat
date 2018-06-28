@@ -1,12 +1,12 @@
 import tableModel from "srcDir/common/model/tableModel";
 
 const data = tableModel({
-  url: "wx/order/listMyOrder",
+  url: "wechat-order/list",
   method: "POST",
-  params: {
+  entity: {
     // _index: "1",
     // sort: "t.lastModifiedDate desc",
-    // orderStatusCode:
+    customer_id: 18
   }
 });
 
