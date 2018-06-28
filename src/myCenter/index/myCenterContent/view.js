@@ -2,11 +2,11 @@ import React from "react";
 import { Icon } from "antd-mobile";
 import history from "srcDir/common/router/history";
 import styles from "./style.less";
-// import store from "store2";
+import store from "store2";
 import fetch from "srcDir/common/ajax/indexWithBody";
 // 创建react组件
 const imgHeader = require("srcDir/images/my_m@3x.png");
-// const userType = store.get("userType");
+const customerId = store.get("customerId");
 class View extends React.Component {
   constructor(props) {
     super(props);
@@ -35,16 +35,15 @@ class View extends React.Component {
       url: url,
       method: method,
       entity: {
-        customer_id: "18"
+        customer_id: customerId
       },
       // params: {
       //   phoneNumber: phonelength,
       // },
       success(res) {
-        const data = JSON.parse(res.entity);
-        // console.log(data, 1111);
+        const data = res.entity.data;
         _this.setState({
-          data: data.obj
+          data: data
         });
       }
     });
@@ -65,18 +64,18 @@ class View extends React.Component {
       defaultKey,
     });
   }
-  certification() {
-    if (this.state.data.verified) {
-      history.push("/myCenter/verified");
-    } else {
-      history.push("/myCenter/certification");
-    }
-    // history.push("/myCenter/certification");
-  }
-  electronicHealthCertificate() {
-    // console.log(11);
-    history.push("/myCenter/electronicHealthCertificate");
-  }
+  // certification() {
+  //   if (this.state.data.verified) {
+  //     history.push("/myCenter/verified");
+  //   } else {
+  //     history.push("/myCenter/certification");
+  //   }
+  //   // history.push("/myCenter/certification");
+  // }
+  // electronicHealthCertificate() {
+  //   // console.log(11);
+  //   history.push("/myCenter/electronicHealthCertificate");
+  // }
   render() {
     // console.log(this.props);
     return (
@@ -90,8 +89,8 @@ class View extends React.Component {
           <div>
             <div>
               <span>
-                <span>{this.state.data && this.state.data.name}</span>
-                <span>{this.state.data && this.state.data.mobile}</span>
+                <span>用户名 {this.state.data && this.state.data.username}</span>
+                <span>积分 {this.state.data && this.state.data.score || 0}</span>
               </span>
               {
                 /*
@@ -121,16 +120,38 @@ class View extends React.Component {
         {/* 导航部分*/}
 
         <div className={styles.documentsAndCustomerService}>
+          <div onTouchEnd={() => { this.showOrderList("2"); }}>
+            <span className={styles.healthCertificate}><i>我的订单</i></span>
+            <span><Icon type="right" /></span>
+          </div>
+          <div onTouchEnd={() => { this.electronicHealthCertificate(); }}>
+            <span className={styles.healthCertificate}><i>我的消息</i></span>
+            <span><Icon type="right" /></span>
+          </div>
+          <div onTouchEnd={() => { this.electronicHealthCertificate(); }}>
+            <span className={styles.healthCertificate}><i>我的收藏</i></span>
+            <span><Icon type="right" /></span>
+          </div>
+          <div onTouchEnd={() => { this.electronicHealthCertificate(); }}>
+            <span className={styles.healthCertificate}><i>我的发布</i></span>
+            <span><Icon type="right" /></span>
+          </div>
+          {
+            /*
           <div onTouchEnd={() => { this.electronicHealthCertificate(); }}>
             <span className={styles.healthCertificate}><i>电子健康证</i></span>
             <span><Icon type="right" /></span>
           </div>
+             */
+          }
           {/*
             <div>
               <span className={styles.collectionOfHealthCertificates}><i>收藏的健康证</i></span>
               <span><Icon type="right" /></span>
             </div>
           */}
+          {
+            /*
           <div onTouchEnd={() => { this.certification(); }}>
             <span className={styles.identity}><i>身份认证</i><i>{(this.props.data && this.props.data.verified) ? "已认证" : "未认证，立即认证"}</i></span>
             <span><Icon type="right" /></span>
@@ -139,6 +160,8 @@ class View extends React.Component {
             <span className={styles.customerService}><i>联系客服<a href="tel:4008008811">4008008811</a></i></span>
             <span><Icon type="right" /></span>
           </div>
+             */
+          }
         </div>
       </div>
     );
