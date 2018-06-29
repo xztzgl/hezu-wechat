@@ -16,22 +16,18 @@ const alert = Modal.alert;
 const defaultImg = require("srcDir/images/local_pic.png");
 
 // const status = {
-//   O_001: "个人预订订单状态"
-//   O_002: "团体订单状态",
-//   O_001_01: "待支付",
-//   O_001_02: "待体检",
-//   O_003: "退款订单状态",
-//   O_001_04: "体检完成"
+//   21001: "待评价"
+//   21002: "已完成"
 // };
 
 // 创建react组件
-// const View = (props) => {
 class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       scrollLoad: true,
-      touchMove: true
+      touchMove: true,
+      customerId: store.get("customerId")
     };
     this.detail = this.detail.bind(this);
     this.refreshList = this.refreshList.bind(this);
@@ -44,80 +40,67 @@ class View extends React.Component {
     this.renderList = this.renderList.bind(this);
     this.onScroll = this.onScroll.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
-    // console.log(props, 2222);
   }
-  // const { search } = props.actions;
-  // const { addRoute } = props.router;
+  componentDidMount() {
+    this.refreshList();
+  }
   onScroll() {
     const _this = this;
     const { props, state } = this;
-    // console.log("old");
-    // console.log(props.results.rows.map((v) => renderList(v)));
     if (state.scrollLoad && state.touchMove) {
       const win = $(window);
       const doc = $(document);
       if (win.scrollTop() + win.height() > doc.height() - 100) {
-        // console.log("到底了");
+        // console.log("到底了", state.listData);
 
         let url;
-        let orderStatusCode;
+        let statusId;
         switch (props.typeId) {
         case "1":
-          url = "/wx/order/listMyOrder";
+          url = "/wechat-order/list";
+          statusId = "21001";
           break;
 
         case "2":
-          url = "/wx/order/listMyOrder";
-          orderStatusCode = "O_001_01";
-          break;
-
-        case "3":
-          url = "/wx/order/listMyOrder";
-          orderStatusCode = "O_001_02";
-          break;
-
-        case "4":
-          url = "/wx/refund/listRefund";
-          // orderStatusCode = "O_001_01";
+          url = "/wechat-order/list";
+          statusId = "21002";
           break;
 
         default:
-          url = "/wx/order/listMyOrder";
+          url = "/wechat-order/list";
         }
 
         fetch({
           url,
           method: "POST",
-          params: {
-            orderStatusCode,
-            _index: props.results.page + 1,
-            // sort: "t.lastModifiedDate desc"
-          },
           entity: {
-            orderStatusCode,
-            _index: props.results.page + 1,
-            // sort: "t.lastModifiedDate desc"
+            status_id: statusId,
+            customer_id: state.customerId,
+            limit: state.limit,
+            page: state.page + 1,
           },
           success(res) {
             const data = res.entity;
-            props.results.page = data.page;
-            // console.log(data);
             // 最后一页
-            if (data.page === data.totalPage) {
+            if (data.last) {
               state.scrollLoad = false;
             }
-            props.results.rows = props.results.rows.concat(data.rows);
+            const newListData = state.listData.concat(data.content);
             const ListContent = () => (<div>
               {
-                props.results.rows.map(v => _this.renderList(v))
+                newListData.map(v => _this.renderList(v))
               }
             </div>);
-            // console.log("new");
-            // console.log(ListContent);
             render(
               <ListContent />
               , document.getElementById(`listWrapper${props.typeId}`)
             );
+            _this.setState({
+              listData: newListData,
+              page: data.number,
+              limit: data.size,
+              touchMove: false
+            });
             state.touchMove = false;
           }
         });
@@ -199,41 +182,48 @@ class View extends React.Component {
     // console.log("old");
     // console.log(props.results.rows.map((v) => renderList(v)));
     let url;
-    let orderStatusCode;
+    let statusId;
     switch (props.typeId) {
     case "1":
-      url = "/wx/order/listMyOrder";
+      url = "/wechat-order/list";
+      statusId = "21001";
       break;
 
     case "2":
-      url = "/wx/order/listMyOrder";
-      orderStatusCode = "O_001_01";
+      url = "/wechat-order/list";
+      statusId = "21002";
       break;
+    // case "1":
+    //   url = "/wx/order/listMyOrder";
+    //   break;
 
-    case "3":
-      url = "/wx/order/listMyOrder";
-      orderStatusCode = "O_001_02";
-      break;
+    // case "2":
+    //   url = "/wx/order/listMyOrder";
+    //   statusId = "O_001_01";
+    //   break;
 
-    case "4":
-      url = "/wx/refund/listRefund";
-      // orderStatusCode = "O_001_01";
-      break;
+    // case "3":
+    //   url = "/wx/order/listMyOrder";
+    //   statusId = "O_001_02";
+    //   break;
+
+    // case "4":
+    //   url = "/wx/refund/listRefund";
+    //   // statusId = "O_001_01";
+    //   break;
 
     default:
-      url = "/wx/order/listMyOrder";
+      url = "/wechat-order/list";
     }
 
     fetch({
       url,
       method: "POST",
-      params: {
-        orderStatusCode,
-        _index: 1,
-      },
       entity: {
-        orderStatusCode,
-        _index: 1,
+        status_id: statusId,
+        customer_id: this.state.customerId,
+        limit: 5,
+        page: 0
       },
       success(res) {
         const data = res.entity;
@@ -241,13 +231,18 @@ class View extends React.Component {
         // 最后一页
         const ListContent = () => (<div>
           {
-            data.rows.map(v => _this.renderList(v))
+            data.content.map(v => _this.renderList(v))
           }
         </div>);
         render(
           <ListContent />
           , document.getElementById(`listWrapper${props.typeId}`)
         );
+        _this.setState({
+          listData: data.content,
+          page: data.number,
+          limit: data.size
+        });
       }
     });
   }
@@ -275,7 +270,7 @@ class View extends React.Component {
       <List className={styles.card}>
         <List.Item wrap platform="android">
           <header className={styles.header}>
-            <h3 className={styles.title}>{v.healthCenterName}</h3>
+            <h3 className={styles.title}>{v.house_title}</h3>
             <p className={`${styles.status} ${v.statusCode === "O_001_05" && styles.cancel}`}>{v.statusName}</p>
           </header>
           <div
@@ -370,9 +365,9 @@ class View extends React.Component {
           onTouchMove={_this.onTouchMove}
           onTouchEnd={_this.onScroll}
         >
-          {
-            props.results && props.results.rows.map(v => _this.renderList(v))
-          }
+          {/*
+            state.listData && state.listData.map(v => _this.renderList(v))
+          */}
         </div>
         <div id="modal2refund" />
       </div>

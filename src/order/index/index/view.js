@@ -10,23 +10,34 @@ const View = (props) => {
   console.info(props);
   const TabConf = {
     defaultKey: history.location.state && history.location.state.defaultKey, // 初始化展示tab
-    tabs: [{
-      title: "全部订单",
-      key: "1",
-      path: "order/list/all",
-    }, {
-      title: "待付款",
-      key: "2",
-      path: "order/list/2pay",
-    }, {
-      title: "待体检",
-      key: "3",
-      path: "order/list/2examine",
-    }, {
-      title: "退款",
-      key: "4",
-      path: "order/list/refund",
-    }]
+    tabs: [
+      {
+        title: "待评价",
+        key: "1",
+        path: "order/list/2evaluate",
+      }, {
+        title: "已完成",
+        key: "2",
+        path: "order/list/2evaluate",
+      }
+    // {
+    //   title: "全部订单",
+    //   key: "1",
+    //   path: "order/list/all",
+    // }, {
+    //   title: "待付款",
+    //   key: "2",
+    //   path: "order/list/2pay",
+    // }, {
+    //   title: "待体检",
+    //   key: "3",
+    //   path: "order/list/2examine",
+    // }, {
+    //   title: "退款",
+    //   key: "4",
+    //   path: "order/list/refund",
+    // }
+    ]
   };
 
   return (

@@ -101,6 +101,7 @@ class View extends React.Component {
           if (data.success) {
             // alert(JSON.parse(res.entity).obj.token, 12313);
             store.set("Authorization", `Bearer ${data.token}`);
+            store.set("customerId", data.customer_id);
             // store.set("userType", JSON.parse(res.entity).obj.userType);
             // const url = store.session.get("page");
             const origin = window.location.origin;
