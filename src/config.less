@@ -68,13 +68,54 @@
 :global .anticon-star:before {
   content: "\E660";
 }
-
+:global .anticon-tv:before {
+  content: "\E163";
+  // 电视-"\E163"
+}
+:global .anticon-refrigerator:before {
+  content: "\E155";
+  // 冰箱-"\E155"
+}
+:global .anticon-washing:before {
+  content: "\E164";
+  // 洗衣机-"\E164"
+}
+:global .anticon-air:before {
+  content: "\E159";
+  // 空调-"\E159"
+}
+:global .anticon-water:before {
+  content: "\E156";
+  // 热水器-"\E156"
+}
+:global .anticon-bed:before {
+  content: "\E153";
+  // 床-"\E153"
+}
+:global .anticon-heating:before {
+  content: "\E157";
+  // 暖气-"\E157"
+}
+:global .anticon-broadband:before {
+  content: "\E165";
+  // 宽带-"\E165"
+}
+:global .anticon-wardrobe:before {
+  content: "\E158";
+  // 衣柜-"\E158"
+}
+:global .anticon-natural:before {
+  content: "\E154";
+  // 天然气-"\E154"
+} 
 :global .ant-rate-star-zero:before,
-:global .anticon-star:before {
+:global div[class^="anticon"]:before {
   font-family: anticon !important;
   @font-face {
     font-family: "anticon";
-    src: url("./fonts/font_zck90zmlh7hf47vi.woff") format("woff");
+    // src: url("./fonts/font_zck90zmlh7hf47vi.woff") format("woff");
+    src: url("./fonts/iconfont.woff") format("woff");
+    // /Users/gmx/Desktop/project/songdun/hezu-wechat/src/fonts
     /* chrome、firefox */
   }
 }

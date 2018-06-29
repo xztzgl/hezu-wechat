@@ -36,6 +36,8 @@ const fetch = () => Promise.resolve({
         { title: "/orderList/orderProgress", path: "/orderList/orderProgress", component: "order/detail/orderProgress", name: "团体列表" },
         { title: "/login", path: "/login", component: "login/login/index", name: "登录" },
         { title: "/release", path: "/release", component: "release/index/index", name: "发布" },
+        { title: "/housing", path: "/housing", component: "housing/index/index", name: "发布房源" },
+        { title: "/roommates", path: "/roommates", component: "roommates/index/index", name: "发布合租房源" },
       ],
 
     },
