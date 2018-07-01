@@ -17,7 +17,6 @@ import store from "store2";
 const imgHeader = require("srcDir/images/my_m@3x.png");
 const loader = store.get("Authorization");
 const alert = Modal.alert;
-
 // let pageIndex = 0;
 const getName = (code) => {
   const codeMap = store.session.get("codeMap");
@@ -81,6 +80,7 @@ class View extends React.Component {
     this.getFormValues = this.getFormValues.bind(this);
     this.callback = this.callback.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
+    this.detail = this.detail.bind(this);
   }
   componentWillMount() {
     this.setheight(this);
@@ -235,6 +235,23 @@ class View extends React.Component {
       // }, 2000);
     }
   }
+  detail(id) {
+    // this.setState({})
+    store.set("product_id", id);
+    history.push("/housingDetails");
+    // const { addRoute } = this.props.router;
+    // addRoute({
+    //   keyName: "房屋详情",
+    //   path: "/housingDetails",
+    //   name: "体检点详情",
+    //   title: "housingDetails",
+    //   component: "housingDetails/index/index",
+    //   paramId: {
+    //     customer_id: customerId,
+    //     product_id: id
+    //   }
+    // });
+  }
   render() {
     const { data, dataroommates } = this.state;
     // const { addRoute } = this.props.router || {};
@@ -291,6 +308,7 @@ class View extends React.Component {
               {data.length > 0 && data.map((v, i) => <div
                 key={i}
                 className={styles.detail}
+                onClick={() => this.detail(v.id)}
               >
                 <div className={styles.goods}>
                   <img src={v.image_id.split(",")[0]} alt="icon" />

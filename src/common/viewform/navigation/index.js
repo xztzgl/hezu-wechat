@@ -2,7 +2,7 @@
  * Created Date: Thursday June 21st 2018 5:21:28 pm
  * Author: gumingxing
  * -----
- * Last Modified:Thursday June 21st 2018 5:21:28 pm
+ * Last Modified:Friday June 29th 2018 9:52:33 am
  * Modified By: gumingxing
  * -----
  * Copyright (c) 2018 MagCloud
@@ -10,8 +10,10 @@
 
 import React from "react";
 import styles from "./style.less";
+import { Modal } from "antd-mobile";
 import history from "srcDir/common/router/history";
 // 创建react组件
+const alert = Modal.alert;
 class View extends React.Component {
   // constructor(props) {
   //   super(props);
@@ -32,7 +34,12 @@ class View extends React.Component {
     if (e === 1) {
       history.push("/homepage");
     } else if (e === 2) {
-      history.push("/release/");
+      // history.push("/release/");
+      alert("请选择要发布房源类型", "", [
+        // { text: "按钮一", onPress: () => console.log("第0个按钮被点击了") },
+        { text: "发布房源", onPress: () => history.push("/housing/") },
+        { text: "合租房源", onPress: () => history.push("/roommates/") },
+      ]);
     } else if (e === 3) {
       history.push("/myCenter");
     }
