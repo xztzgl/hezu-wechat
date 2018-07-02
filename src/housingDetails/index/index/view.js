@@ -54,14 +54,15 @@ const getClassName = (value) => {
   const classname = fontName.filter(v => v.label === value);
   return classname.length > 0 ? classname[0].value : "";
 };
-// import history from "srcDir/common/router/history";
+import history from "srcDir/common/router/history";
 // import { Carousel, InputItem, Picker, List, DatePicker, TextareaItem, Toast } from "antd-mobile";
 // 创建react组件
 class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: false
+      data: false,
+      customerMobile: ""
     };
     // console.log(props, 2222);
     this.getData = this.getData.bind(this);
@@ -92,7 +93,8 @@ class View extends React.Component {
         // }
         if (res.entity.success) {
           _this.setState({
-            data: res.entity.data
+            data: res.entity.data,
+            customerMobile: res.entity.customer_mobile,
           });
         }
       }
@@ -138,8 +140,8 @@ class View extends React.Component {
       },
       success(res) {
         if (res.entity.success) {
-          Toast.success("预约成功", () => {
-
+          Toast.success("预约成功", 1.5, () => {
+            history.push("/homepage");
           });
         }
         // console.log(res, 123123123);
@@ -147,7 +149,7 @@ class View extends React.Component {
     });
   }
   render() {
-    const { data } = this.state;
+    const { data, customerMobile } = this.state;
     return (
       <div>
         {
@@ -252,7 +254,7 @@ class View extends React.Component {
             </div>
             <div className={styles.contact}>
               <div>联系方式</div>
-              <div>321342143124321432143</div>
+              <div>{customerMobile}</div>
             </div>
 
             <div className={styles.describe}>
