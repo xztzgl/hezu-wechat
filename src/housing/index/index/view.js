@@ -519,7 +519,7 @@ class View extends React.Component {
               />
             </div>
           </div>
-          <div className={styles.ggg} onClick={() => this.submit()}>发布</div>
+          <div className={styles.submit} onClick={() => this.submit()}>发布</div>
         </div>
       </div>
     );

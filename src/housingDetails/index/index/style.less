@@ -273,13 +273,12 @@
 }
 
 .rele {
-  display: flex;
-  // flex-direction: column;
+  display: flex; // flex-direction: column;
   align-items: center;
   >div {
     display: flex;
     width: 100%;
-    >div{
+    >div {
       text-align: center;
       flex: 1;
       line-height: 40px;
@@ -288,7 +287,88 @@
   }
   position: absolute;
   width: 100%;
-  height: 100% ;
-  padding-bottom: 60px;
-  // background: firebrick;
+  height: 100%;
+  padding-bottom: 60px; // background: firebrick;
+}
+
+// 房屋详情
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 10px;
+}
+
+.roomPriceSize {
+  display: flex;
+  border: 1px solid #eee;
+  border-left: 0;
+  border-right: 0;
+  padding: 10px 0;
+  font-size: 14px;
+  >div {
+    height: 40px;
+    &:nth-child(2n+1) {
+      flex: 1;
+      padding-left: 20px;
+      >span {
+        display: block;
+        &:nth-child(2) {
+          color: red;
+        }
+      }
+    }
+    &:nth-child(2n) {
+      width: 1px;
+      border-left: 1px solid #eee;
+    }
+  }
+}
+
+.roomDetail {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  >div {
+    display: inline-block;
+    width: 50%;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    >span {
+      &:nth-child(1) {
+        color: #bbb;
+      }
+    }
+  }
+}
+
+.fa {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  >div {
+    &:first-child {
+      // border: 1px solid red;
+      text-align: left;
+      // line-height: 30px;
+      padding: 15px 0 0 10px;
+    }
+  }
+}
+
+.contact,
+.describe {
+  border-bottom: 1px solid #eee;
+  padding:0 10px 10px;
+  >div{
+    &:first-child{
+      line-height: 40px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+  }
+}
+.submit {
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  background-color: rgb(3, 151, 3, 0.5)
 }
