@@ -9,7 +9,7 @@ import React from "react";
 // import navigatorGeolocation from "./navigatorGeolocation";
 // import history from "srcDir/common/router/history";
 import CenterContent from "srcDir/myCenter/index/myCenterContent/view";
-
+import Nav from "srcDir/common/viewform/navigation/index";
 
 // 创建react组件
 // const View = (props) => {
@@ -21,6 +21,9 @@ import CenterContent from "srcDir/myCenter/index/myCenterContent/view";
 //     </div>
 //   );
 // };
-const View = props => <div><CenterContent data={props.results && props.results.obj} modal={props.modal} /></div>;
+const View = props => <div>
+  <CenterContent data={props.results && props.results.obj} modal={props.modal} />
+  <Nav />
+</div>;
 
 export { View as default };
