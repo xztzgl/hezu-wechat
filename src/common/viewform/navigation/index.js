@@ -37,8 +37,8 @@ class View extends React.Component {
       // history.push("/release/");
       alert("请选择要发布房源类型", "", [
         // { text: "按钮一", onPress: () => console.log("第0个按钮被点击了") },
+        { text: "找人合租", onPress: () => history.push("/roommates/") },
         { text: "发布房源", onPress: () => history.push("/housing/") },
-        { text: "合租房源", onPress: () => history.push("/roommates/") },
       ]);
     } else if (e === 3) {
       history.push("/myCenter");
