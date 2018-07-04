@@ -23,7 +23,7 @@ import Nav from "srcDir/common/viewform/navigation/index";
 // };
 const View = props => <div>
   <CenterContent data={props.results && props.results.obj} modal={props.modal} />
-  <Nav />
+  <Nav checked={3} />
 </div>;
 
 export { View as default };

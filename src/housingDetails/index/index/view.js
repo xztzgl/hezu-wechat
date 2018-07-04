@@ -94,7 +94,7 @@ class View extends React.Component {
     });
   }
   collection(e) {
-    // const _this = this;
+    const _this = this;
     let url;
     if (!this.state.favorited) {
       url = "/wechat-favorite/add";
@@ -111,10 +111,10 @@ class View extends React.Component {
       },
       success(res) {
         if (res.entity.success) {
-          // _this.setState({
-          //   data: res.entity.data
-          // });
-          console.log(res);
+          _this.setState({
+            favorited: !_this.state.favorited,
+          });
+          // console.log(res);
         }
       }
     });
@@ -240,7 +240,7 @@ class View extends React.Component {
               <div>房源简介</div>
               <div className={styles.facilities}>
                 {
-                  getArry(10014).map((v, i) => <div key={i} style={getColor(data.infrastructure_id, v.value) ? { color: "red" } : {}}>
+                  getArry(10014).map((v, i) => <div key={i} style={getColor(data.infrastructure_id, v.value) ? { color: "green" } : {}}>
                     <div className={getClassName(v.label)}></div>
                     <div>{v.label}</div>
                   </div>)

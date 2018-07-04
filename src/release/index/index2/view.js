@@ -2,7 +2,7 @@
  * Created Date: Thursday June 21st 2018 5:21:28 pm
  * Author: gumingxing
  * -----
- * Last Modified:Friday June 29th 2018 5:02:58 pm
+ * Last Modified:Friday June 29th 2018 5:14:22 pm
  * Modified By: gumingxing
  * -----
  * Copyright (c) 2018 MagCloud
@@ -11,22 +11,16 @@
 import React from "react";
 import styles from "./style.less";
 import { createForm } from "rc-form";
-import { InputItem, Picker, List, DatePicker, TextareaItem, Toast } from "antd-mobile";
+import { Carousel, InputItem, Picker, List, DatePicker, TextareaItem, Toast } from "antd-mobile";
+
 import history from "srcDir/common/router/history";
-// import history from "srcDir/common/router/history";
-// import TakePictures from "srcDir/common/viewform/takePictures/view";
+import TakePictures from "srcDir/common/viewform/takePictures/view";
 import store from "store2";
 import fetch from "srcDir/common/ajax/indexWithBody";
-import moment from "moment";
+// import moment from "moment";
 // const maxDate = moment("2016-12-03 +0800", "YYYY-MM-DD Z").utcOffset(8);
 // const minDate = moment("2015-08-06 +0800", "YYYY-MM-DD Z").utcOffset(8);
 const customerid = store.get("customerId");
-const getcity = (id) => {
-  const district = store.session.get("district");
-  const pid = district.filter(v => v.disp_local_id === id)[0].pid;
-  // console.log(pid, 11);
-  return district.filter(v => v.disp_local_id === pid)[0].disp_local_id;
-};
 const city = () => {
   const district = store.session.get("district");
   district.map(v => {
@@ -49,22 +43,23 @@ const city = () => {
   dd(first);
   return first;
 };
-// const fontName = [
-//   { label: "电视", value: "anticon-tv" },
-//   { label: "冰箱", value: "anticon-refrigerator" },
-//   { label: "洗衣机", value: "anticon-washing" },
-//   { label: "空调", value: "anticon-air" },
-//   { label: "热水器", value: "anticon-water" },
-//   { label: "床", value: "anticon-bed" },
-//   { label: "暖气", value: "anticon-heating" },
-//   { label: "宽带", value: "anticon-broadband" },
-//   { label: "衣柜", value: "anticon-wardrobe" },
-//   { label: "天然气", value: "anticon-natural" },
-// ];
-// const getClassName = (value) => {
-//   const classname = fontName.filter(v => v.label === value);
-//   return classname.length > 0 ? classname[0].value : "";
-// };
+
+const fontName = [
+  { label: "电视", value: "anticon-tv" },
+  { label: "冰箱", value: "anticon-refrigerator" },
+  { label: "洗衣机", value: "anticon-washing" },
+  { label: "空调", value: "anticon-air" },
+  { label: "热水器", value: "anticon-water" },
+  { label: "床", value: "anticon-bed" },
+  { label: "暖气", value: "anticon-heating" },
+  { label: "宽带", value: "anticon-broadband" },
+  { label: "衣柜", value: "anticon-wardrobe" },
+  { label: "天然气", value: "anticon-natural" },
+];
+const getClassName = (value) => {
+  const classname = fontName.filter(v => v.label === value);
+  return classname.length > 0 ? classname[0].value : "";
+};
 // const codeMap = store.session.get("codeMap");
 const getName = (pid) => {
   const codeMap = store.session.get("codeMap");
@@ -94,46 +89,21 @@ class View extends React.Component {
       renttype: "",
       renttypeArry: [],
       values: {},
-      id: null
+      // renttype: "",
     };
     this.getimg = this.getimg.bind(this);
     this.submit = this.submit.bind(this);
     this.checkBox = this.checkBox.bind(this);
-    this.getData = this.getData.bind(this);
     // console.log(props, 2222);
   }
   componentDidMount() {
-    const id = this.props.router.history.location.state;
-    // console.log(id, 111);
-    if (id) {
-      this.getData(id.id);
-    }
-  }
-  getData(id) {
-    const _this = this;
-    fetch({
-      url: "/wechat-house/get",
-      method: "POST",
-      entity: {
-        customer_id: customerid,
-        product_id: id
-      },
-      success(res) {
-        if (res.entity.success) {
-          const data = res.entity.data;
-          _this.setState({
-            data,
-            imgdata: data.image_id.split(","),
-            // : data.infrastructure_id.
-            renttypeArry: data.infrastructure_id.split(","),
-            renttype: data.infrastructure_id,
-            id
-            // customerMobile: res.entity.customer_mobile,
-            // favorited: res.entity.favorited
-          });
-        }
-      }
-    });
+    // console.log(this.props.prompt, 888);
+    // this.props.form.setFields({
+    //   infrastructure_id: {
+    //     // value: values.user,
+    //     errors: [new Error("请选择配套设施")],
+    //   },
+    // });
   }
   getimg(e) {
     // alert(111);
@@ -146,63 +116,42 @@ class View extends React.Component {
       imgdata: dd,
     });
   }
-  submit(code) {
-    const _this = this;
+  submit() {
+    // console.log(this.props.form, 11111);
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log(values, 12121); // /wechat-house/add
-        if (code !== 3) {
-          if (values.checkin_time) {
-            const date = new Date(values.checkin_time._d);
-            values.checkin_time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-          }
-          const key = Object.keys(values);
-          key.map(v => {
-            if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined") {
-              values[v] = values[v].join(",");
-            }
-            return true;
-          });
-          values.creator_id = customerid;
-          const dis = values.district_id.split(",");
-          values.district_id = dis[dis.length - 1];
-          let url;
-          if (code === 2) {
-            values.id = _this.state.id;
-            url = "/wechat-person/update";
-          } else {
-            url = "/wechat-person/add";
-          }
-          fetch({
-            // url: "/wx/account/login",
-            // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
-            url, // "/wechat-person/add",
-            method: "POST",
-            entity: values,
-            success(res) {
-              // console.log(res, 13413214);
-              if (res.entity) {
-                history.push("/homepage");
-              }
-              // if () {
-              // _this.setData(_this, res.entity.content, res.entity.content.lenght - 1);
-              // }
-            }
-          });
-        } else {
-          fetch({
-            // url: "/wx/account/login",
-            // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
-            url: `/wechat-person/delete/${_this.state.id}`,
-            method: "POST",
-            // entity: values,
-            success(res) {
-              if (res.entity) {
-                history.push("/homepage");
-              }
-            }
-          });
+        if (values.checkin_time) {
+          const date = new Date(values.checkin_time._d);
+          values.checkin_time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         }
+        const key = Object.keys(values);
+        key.map(v => {
+          if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined") {
+            values[v] = values[v].join(",");
+          }
+          return true;
+        });
+        // console.log(values, 111);
+        values.creator_id = customerid;
+        const dis = values.district_id.split(",");
+        values.district_id = dis[dis.length - 1];
+        fetch({
+          // url: "/wx/account/login",
+          // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
+          url: "/wechat-house/add",
+          method: "POST",
+          entity: values,
+          success(res) {
+            // console.log(res, 13413214);
+            if (res.entity) {
+              history.push("/homepage");
+            }
+            // if () {
+            // _this.setData(_this, res.entity.content, res.entity.content.lenght - 1);
+            // }
+          }
+        });
       } else {
         // console.log(err, 1111);
         this.setState({
@@ -238,10 +187,59 @@ class View extends React.Component {
   } // checkBox
   render() {
     const { getFieldProps } = this.props.form;
-    const { data } = this.state;
+    const { renttype } = this.state;
     return (
       <div className={styles.nav}>
+        {
+          this.state.imgdata.length > 0 &&
+            <div>
+              <Carousel
+                className={styles.Carousel}
+              // vertical
+                dots={!false}
+                dragging={false}
+                swiping={false}
+                autoplay
+                infinite={this.state.imgdata.length !== 1}
+            // speed={200}
+            // autoplayInterval={300}
+            // resetAutoplay={false}
+              >
+              {this.state.imgdata.map((type, index) => (
+                <div key={index}><img src={type} alt="img" style={{ height: "200px", width: "100%" }} /></div>
+              ))}
+              </Carousel>
+              {/* <InputItem {...getFieldProps("image_id")} value={this.state.imgdata.join(",")} placeholder="单行输入" style={{ display: "none" }} /> */}
+            </div>
+        }
+        <InputItem
+          {...getFieldProps("image_id", {
+            rules: [{
+              required: true,
+              message: "请上传图片",
+            }],
+          })}
+          value={this.state.imgdata.join(",")}
+          style={{ display: "none" }}
+        />
+        <TakePictures getImg={this.getimg} />
         <div style={{ marginTop: 6 }}>
+          <div className={`${styles.fromStyle} style`}>
+            <div>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题</div>
+            <div>
+              <InputItem
+                error={objKey(this.state.values) ? !this.state.values.title : false}
+                {...getFieldProps("title", {
+                  // initialValue: objKey(this.state.values) ? "请输入标题" : "",
+                  rules: [{
+                    required: true,
+                    message: "请输入标题",
+                  }],
+                })}
+                placeholder="请输入标题"
+              />
+            </div>
+          </div>
           <div className={`${styles.fromStyle} style`}>
             <div>片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区</div>
             <div>
@@ -249,7 +247,6 @@ class View extends React.Component {
                 data={city()}
                 // cols={1}
                 {...getFieldProps("district_id", {
-                  initialValue: objKey(data) ? [1, getcity(data.district_id), data.district_id] : [],
                   rules: [{
                     required: true,
                     message: "请选择片区",
@@ -263,7 +260,7 @@ class View extends React.Component {
           {/* <div className={`${styles.fromStyle} style`}>
             <div>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题</div><div><InputItem placeholder="单行输入" /></div>
           </div> */}
-          {/* <div className={`${styles.fromStyle} style`}>
+          <div className={`${styles.fromStyle} style`}>
             <div>小区名称</div>
             <div>
               <InputItem
@@ -276,7 +273,7 @@ class View extends React.Component {
                 placeholder="请输入小区名称"
               />
             </div>
-          </div> */}
+          </div>
           <div className={`${styles.fromStyle} style`}>
             <div>合租类型</div>
             <div>
@@ -294,7 +291,7 @@ class View extends React.Component {
               </Picker>
             </div>
           </div>
-          {/* <div className={`${styles.fromStyle} style`}>
+          <div className={`${styles.fromStyle} style`}>
             <div>楼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;层</div>
             <div className="floor">
               <div>
@@ -318,8 +315,8 @@ class View extends React.Component {
                 />层
               </div>
             </div>
-          </div> */}
-          {/* <div className={`${styles.fromStyle} style`}>
+          </div>
+          <div className={`${styles.fromStyle} style`}>
             <div>建筑面积</div>
             <div className="numberStyle">
               <InputItem
@@ -350,7 +347,7 @@ class View extends React.Component {
                 面积
               </InputItem>
             </div>
-          </div> */}
+          </div>
           <div className={`${styles.fromStyle} style`}>
             <div>租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金</div>
             <div className="numberStyle">
@@ -365,7 +362,6 @@ class View extends React.Component {
                     }
                     return v;
                   },
-                  initialValue: objKey(data) ? data.rental : "",
                   rules: [{
                     required: true,
                     message: "请输入租金",
@@ -384,18 +380,19 @@ class View extends React.Component {
               </InputItem>
             </div>
           </div>
-          {/* <div className={`${styles.fromStyle} ${styles.textarea}`}>
+          <div className={`${styles.fromStyle} ${styles.textarea}`}>
             <div>配套设施</div>
             <div>
               <input
                 style={{ display: "none" }}
                 {...getFieldProps("infrastructure_id", {
+                  initialValue: renttype,
                   rules: [{
                     required: true,
                     message: "请选择配套设施",
                   }],
                 })}
-                value={this.state.renttype}
+                // value={this.state.renttype}
               />
               <div className={styles.facilities}>
                 {
@@ -406,8 +403,8 @@ class View extends React.Component {
                 }
               </div>
             </div>
-          </div> */}
-          {/* <div className={`${styles.fromStyle} style`}>
+          </div>
+          <div className={`${styles.fromStyle} style`}>
             <div>户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</div>
             <div>
               <Picker
@@ -423,7 +420,7 @@ class View extends React.Component {
                 <List.Item arrow="horizontal">户型</List.Item>
               </Picker>
             </div>
-          </div> */}
+          </div>
           <div className={`${styles.fromStyle} style`}>
             <div>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
             <div>
@@ -431,7 +428,6 @@ class View extends React.Component {
                 data={getName(10001)}
                 cols={1}
                 {...getFieldProps("gender_id", {
-                  initialValue: objKey(data) ? [data.gender_id] : [],
                   rules: [{
                     required: true,
                     message: "请选择性别",
@@ -451,7 +447,6 @@ class View extends React.Component {
                 // extra="可选,小于结束日期"
                 // format="YYYY-MM-DD"
                 {...getFieldProps("checkin_time", {
-                  initialValue: objKey(data) ? moment(data.checkin_time, "YYYY-MM-DD") : "",
                   rules: [{
                     required: true,
                     message: "请选择入住时间",
@@ -464,7 +459,7 @@ class View extends React.Component {
               </DatePicker>
             </div>
           </div>
-          {/* <div className={`${styles.fromStyle} style`}>
+          <div className={`${styles.fromStyle} style`}>
             <div>朝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;向</div>
             <div>
               <Picker
@@ -480,8 +475,8 @@ class View extends React.Component {
                 <List.Item arrow="horizontal">朝向</List.Item>
               </Picker>
             </div>
-          </div> */}
-          {/* <div className={`${styles.fromStyle} style`}>
+          </div>
+          <div className={`${styles.fromStyle} style`}>
             <div>装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修</div>
             <div>
               <Picker
@@ -497,8 +492,8 @@ class View extends React.Component {
                 <List.Item arrow="horizontal">装修</List.Item>
               </Picker>
             </div>
-          </div> */}
-          {/* <div className={`${styles.fromStyle} style`}>
+          </div>
+          <div className={`${styles.fromStyle} style`}>
             <div>支付方式</div>
             <div>
               <Picker
@@ -514,8 +509,8 @@ class View extends React.Component {
                 <List.Item arrow="horizontal">支付方式</List.Item>
               </Picker>
             </div>
-          </div> */}
-          {/* <div className={`${styles.fromStyle} style`}>
+          </div>
+          <div className={`${styles.fromStyle} style`}>
             <div>信息可见</div>
             <div>
               <Picker
@@ -531,13 +526,12 @@ class View extends React.Component {
                 <List.Item arrow="horizontal">信息可见</List.Item>
               </Picker>
             </div>
-          </div> */}
+          </div>
           <div className={`${styles.fromStyle} ${styles.textarea}`}>
             <div>描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述</div>
             <div>
               <TextareaItem
                 {...getFieldProps("description", {
-                  initialValue: objKey(data) ? data.description : "",
                   rules: [{
                     required: true,
                     message: "请编写描述",
@@ -550,14 +544,7 @@ class View extends React.Component {
               />
             </div>
           </div>
-          {
-            this.state.id ?
-              <div className={styles.open}>
-                <div onClick={() => this.submit(3)}>删除</div>
-                <div onClick={() => this.submit(2)}>修改</div>
-              </div> :
-              <div className={styles.submit} onClick={() => this.submit(1)}>发布</div>
-          }
+          <div className={styles.submit} onClick={() => this.submit()}>发布</div>
         </div>
       </div>
     );

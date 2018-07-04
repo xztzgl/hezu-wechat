@@ -1,15 +1,13 @@
-// import tableModel from "srcDir/common/model/tableModel";
+import tableModel from "srcDir/common/model/noFetchModel";
 
-// const data = tableModel({
-//   url: "/wx/enterprise/info/view",
-//   method: "GET",
-//   params: {
-//     // _index: "1",
-//     // sort: "t.lastModifiedDate desc"
-//   }
-// });
-import noFetchModel from "srcDir/common/model/noFetchModel";
+const data = tableModel({
+  url: "/driver/knowledge/homePage",
+  method: "POST",
+  params: {
+    _index: "1",
+    sort: "t.lastModifiedDate desc"
+  }
+});
 
-const data = noFetchModel({});
 export { data as default };
 
