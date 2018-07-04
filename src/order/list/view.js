@@ -193,24 +193,6 @@ class View extends React.Component {
       url = "/wechat-order/list";
       statusId = "21002";
       break;
-    // case "1":
-    //   url = "/wx/order/listMyOrder";
-    //   break;
-
-    // case "2":
-    //   url = "/wx/order/listMyOrder";
-    //   statusId = "O_001_01";
-    //   break;
-
-    // case "3":
-    //   url = "/wx/order/listMyOrder";
-    //   statusId = "O_001_02";
-    //   break;
-
-    // case "4":
-    //   url = "/wx/refund/listRefund";
-    //   // statusId = "O_001_01";
-    //   break;
 
     default:
       url = "/wechat-order/list";
