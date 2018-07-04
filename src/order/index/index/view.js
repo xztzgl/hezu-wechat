@@ -6,8 +6,8 @@ import history from "srcDir/common/router/history";
 
 // 创建react组件
 const View = (props) => {
-  console.info("order/tab");
-  console.info(props);
+  // console.info("order/tab");
+  // console.info(props);
   const TabConf = {
     defaultKey: history.location.state && history.location.state.defaultKey, // 初始化展示tab
     tabs: [

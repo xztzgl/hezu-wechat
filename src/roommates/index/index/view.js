@@ -106,6 +106,10 @@ class View extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log(values, 12121); // /wechat-house/add
+        if (values.checkin_time) {
+          const date = new Date(values.checkin_time._d);
+          values.checkin_time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }
         const key = Object.keys(values);
         key.map(v => {
           if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined") {
@@ -130,7 +134,7 @@ class View extends React.Component {
           }
         });
       } else {
-        console.log(err, 1111);
+        // console.log(err, 1111);
         this.setState({
           values,
         });
