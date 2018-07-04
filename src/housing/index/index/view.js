@@ -21,14 +21,28 @@ import fetch from "srcDir/common/ajax/indexWithBody";
 // const maxDate = moment("2016-12-03 +0800", "YYYY-MM-DD Z").utcOffset(8);
 // const minDate = moment("2015-08-06 +0800", "YYYY-MM-DD Z").utcOffset(8);
 
-const district = store.session.get("district");
-district.map(v => {
-  v.label = v.local_name;
-  v.value = v.disp_local_id;
-  delete v.local_name;
-  delete v.disp_local_id;
-  return true;
-});
+const city = () => {
+  const district = store.session.get("district");
+  district.map(v => {
+    v.label = v.local_name;
+    v.value = v.disp_local_id;
+    return true;
+  });
+  const first = district.filter(v => v.value === 1);
+  const dd = (data) => {
+    data.map(v => {
+      const b = district.filter(va => va.pid === v.value);
+      if (b.length > 0) {
+        v.children = b;
+        dd(b);
+      }
+      return true;
+    });
+    return data;
+  };
+  dd(first);
+  return first;
+};
 
 const fontName = [
   { label: "电视", value: "anticon-tv" },
@@ -227,8 +241,8 @@ class View extends React.Component {
             <div>片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区</div>
             <div>
               <Picker
-                data={district}
-                cols={1}
+                data={city()}
+                // cols={1}
                 {...getFieldProps("district_id", {
                   rules: [{
                     required: true,

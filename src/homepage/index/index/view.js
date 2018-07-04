@@ -23,6 +23,8 @@ const getName = (code) => {
   const arry = codeMap.filter(v => v.code === code);
   return arry.length > 0 ? arry[0].value : "";
 };
+
+// city();
 const getDistrictName = (code) => {
   const district = store.session.get("district");
   const arry = district.filter(v => v.disp_local_id === code);
@@ -228,29 +230,11 @@ class View extends React.Component {
         { text: "取消", onPress: () => { } },
         { text: "确定", onPress: () => history.push("/login") },
       ]);
-      // setTimeout(() => {
-      //   // 可以调用close方法以在外部close
-      //   console.log("auto close");
-      //   alertInstance.close();
-      // }, 2000);
     }
   }
   detail(id) {
-    // this.setState({})
     store.set("product_id", id);
     history.push("/housingDetails");
-    // const { addRoute } = this.props.router;
-    // addRoute({
-    //   keyName: "房屋详情",
-    //   path: "/housingDetails",
-    //   name: "体检点详情",
-    //   title: "housingDetails",
-    //   component: "housingDetails/index/index",
-    //   paramId: {
-    //     customer_id: customerId,
-    //     product_id: id
-    //   }
-    // });
   }
   render() {
     const { data, dataroommates } = this.state;
