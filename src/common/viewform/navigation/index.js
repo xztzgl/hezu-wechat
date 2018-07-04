@@ -2,7 +2,7 @@
  * Created Date: Thursday June 21st 2018 5:21:28 pm
  * Author: gumingxing
  * -----
- * Last Modified:Friday June 29th 2018 9:52:33 am
+ * Last Modified:Wednesday July 4th 2018 10:45:19 am
  * Modified By: gumingxing
  * -----
  * Copyright (c) 2018 MagCloud
@@ -27,10 +27,6 @@ class View extends React.Component {
   //   // console.log(this.props.prompt, 888);
   // }
   onclick(e) {
-    // e.preventDefault();
-    // const values = $(this.props.id).val();
-    // console.log(values, 6666);
-    // this.props.onClickFun(e);
     if (e === 1) {
       history.push("/homepage");
     } else if (e === 2) {
@@ -47,9 +43,24 @@ class View extends React.Component {
   render() {
     return (
       <div className={styles.nav}>
-        <div onClick={() => this.onclick(1)}>首页</div>
-        <div onClick={() => this.onclick(2)}>发布</div>
-        <div onClick={() => this.onclick(3)}>我的</div>
+        <div onClick={() => this.onclick(1)}>
+          <div className={this.props.checked === 1 && styles.checked}>
+            <div className="anticon-home"></div>
+            <div>首页</div>
+          </div>
+        </div>
+        <div onClick={() => this.onclick(2)}>
+          <div className={this.props.checked === 2 && styles.checked}>
+            <div className="anticon-release"></div>
+            <div>发布</div>
+          </div>
+        </div>
+        <div onClick={() => this.onclick(3)}>
+          <div className={this.props.checked === 3 && styles.checked}>
+            <div className="anticon-my"></div>
+            <div>我的</div>
+          </div>
+        </div>
       </div>
     );
   }

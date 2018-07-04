@@ -357,7 +357,7 @@ class View extends React.Component {
             </div>
           </TabPane>
         </Tabs>
-        <Nav />
+        <Nav checked={1} />
       </div>
     );
   }
