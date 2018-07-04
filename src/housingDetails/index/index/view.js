@@ -62,7 +62,8 @@ class View extends React.Component {
     super(props);
     this.state = {
       data: false,
-      customerMobile: ""
+      customerMobile: "",
+      favorited: false,
     };
     // console.log(props, 2222);
     this.getData = this.getData.bind(this);
@@ -75,8 +76,6 @@ class View extends React.Component {
   getData() {
     const _this = this;
     fetch({
-      // url: "/wx/account/login",
-      // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
       url: "/wechat-house/get",
       method: "POST",
       entity: {
@@ -84,33 +83,25 @@ class View extends React.Component {
         product_id: productid
       },
       success(res) {
-        // console.log(res, 13413214);
-        // if (res.entity) {
-        //   history.push("/homepage");
-        // }
-        // if () {
-        // _this.setData(_this, res.entity.content, res.entity.content.lenght - 1);
-        // }
         if (res.entity.success) {
           _this.setState({
             data: res.entity.data,
             customerMobile: res.entity.customer_mobile,
+            favorited: res.entity.favorited
           });
         }
       }
     });
   }
   collection(e) {
-    const _this = this;
+    // const _this = this;
     let url;
-    if (e) {
+    if (!this.state.favorited) {
       url = "/wechat-favorite/add";
     } else {
       url = "/wechat-favorite/delete";
     }
     fetch({
-      // url: "/wx/account/login",
-      // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
       url,
       method: "POST",
       entity: {
@@ -120,9 +111,10 @@ class View extends React.Component {
       },
       success(res) {
         if (res.entity.success) {
-          _this.setState({
-            data: res.entity.data
-          });
+          // _this.setState({
+          //   data: res.entity.data
+          // });
+          console.log(res);
         }
       }
     });
@@ -149,7 +141,7 @@ class View extends React.Component {
     });
   }
   render() {
-    const { data, customerMobile } = this.state;
+    const { data, customerMobile, favorited } = this.state;
     return (
       <div>
         {
@@ -172,7 +164,10 @@ class View extends React.Component {
             </Carousel>
             <div className={styles.title}>
               <div>{data.title}</div>
-              <div onClick={() => this.collection(data.housetype_id)}>收藏</div>
+              <div onClick={() => this.collection("1")} style={favorited ? { color: "#fdce01" } : {}}>
+                <div className={favorited ? "anticon-collection-all" : "anticon-collection"}></div>
+                <div>收藏</div>
+              </div>
             </div>
             <div className={styles.roomPriceSize}>
               <div>

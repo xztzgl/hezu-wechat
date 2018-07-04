@@ -172,3 +172,52 @@
     background-image: url("srcDir/images/button_line_blue@3x.png");
   }
 }
+
+.goods {
+  display: flex;
+  padding: 0.2rem 0.3rem;
+  >img {
+    height: 1.68rem;
+    width: 1.68rem;
+  }
+}
+
+.Introduction {
+  padding: 0 0.2rem; // display: flex;
+  // flex-direction: column;
+  display: inline-block;
+  >div {
+    // overflow: hidden;
+    height: 1.68/3rem;
+    &:first-child {
+      >div {
+        // background: red;
+        display: block;
+        overflow: hidden;
+        width: 99%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+    &:nth-child(2) {
+      line-height: 1.68/3rem;
+      font-size: 13px;
+      color: #ddd;
+    }
+    &:nth-child(3) {
+      display: table-cell;
+      vertical-align: bottom;
+      padding: 0;
+      >text {
+        &:first-child {
+          color: red;
+        }
+        &:nth-child(2) {
+          color: #ccc;
+          padding: 0 5px;
+        }
+      } // margin-top: auto;
+      // height: inherit;
+    }
+  }
+}

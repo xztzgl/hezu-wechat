@@ -13,7 +13,7 @@ import styles from "./style.less";
 import { createForm } from "rc-form";
 import { Carousel, InputItem, Picker, List, DatePicker, TextareaItem, Toast } from "antd-mobile";
 
-// import history from "srcDir/common/router/history";
+import history from "srcDir/common/router/history";
 import TakePictures from "srcDir/common/viewform/takePictures/view";
 import store from "store2";
 import fetch from "srcDir/common/ajax/indexWithBody";
@@ -60,7 +60,7 @@ const getName = (pid) => {
 };
 const objKey = (value) => {
   const arry = Object.keys(value).length > 0;
-  console.log(value, Object.keys(value), 1111111);
+  // console.log(value, Object.keys(value), 1111111);
   return arry;
 };
 // 创建react组件
@@ -74,7 +74,8 @@ class View extends React.Component {
       areafocused: false,
       renttype: "",
       renttypeArry: [],
-      values: {}
+      values: {},
+      // renttype: "",
     };
     this.getimg = this.getimg.bind(this);
     this.submit = this.submit.bind(this);
@@ -106,6 +107,10 @@ class View extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log(values, 12121); // /wechat-house/add
+        if (values.checkin_time) {
+          const date = new Date(values.checkin_time._d);
+          values.checkin_time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }
         const key = Object.keys(values);
         key.map(v => {
           if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined") {
@@ -113,6 +118,7 @@ class View extends React.Component {
           }
           return true;
         });
+        // console.log(values, 111);
         fetch({
           // url: "/wx/account/login",
           // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
@@ -164,6 +170,7 @@ class View extends React.Component {
   } // checkBox
   render() {
     const { getFieldProps } = this.props.form;
+    const { renttype } = this.state;
     return (
       <div className={styles.nav}>
         {
@@ -362,12 +369,13 @@ class View extends React.Component {
               <input
                 style={{ display: "none" }}
                 {...getFieldProps("infrastructure_id", {
+                  initialValue: renttype,
                   rules: [{
                     required: true,
                     message: "请选择配套设施",
                   }],
                 })}
-                value={this.state.renttype}
+                // value={this.state.renttype}
               />
               <div className={styles.facilities}>
                 {

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
-import moment from "moment";
-import numeral from "numeral";
+// import moment from "moment";
+// import numeral from "numeral";
 import store from "store2";
 
 import { List, Modal, Toast } from "antd-mobile";
@@ -13,8 +13,19 @@ import pay from "srcDir/common/weichat/pay";
 import styles from "./style.less";
 
 const alert = Modal.alert;
-const defaultImg = require("srcDir/images/local_pic.png");
-
+import Nav from "srcDir/common/viewform/navigation/index";
+// const defaultImg = require("srcDir/images/local_pic.png");
+const getName = (code) => {
+  const codeMap = store.session.get("codeMap");
+  const arry = codeMap.filter(v => v.code === code);
+  return arry.length > 0 ? arry[0].value : "";
+};
+const getDistrictName = (code) => {
+  const district = store.session.get("district");
+  const arry = district.filter(v => v.disp_local_id === code);
+  // console.log(arry, 1111);
+  return arry.length > 0 ? arry[0].local_name : "";
+};
 // const status = {
 //   21001: "待评价"
 //   21002: "已完成"
@@ -228,10 +239,9 @@ class View extends React.Component {
       }
     });
   }
-  detail(id, code) {
-    console.log(id);
-    const { addRoute } = this.props.router;
-    addRoute({ keyName: "订单详情", path: "/order/detail/", name: "体检点详情", title: "/order/detail/", component: "order/detail/index", paramId: { id: id, code: code } });
+  detail(id) {
+    store.set("product_id", id);
+    history.push("/housingDetails");
   }
   toRefund(id) {
     // console.log(id);
@@ -251,41 +261,23 @@ class View extends React.Component {
     return (
       <List className={styles.card}>
         <List.Item wrap platform="android">
-          <header className={styles.header}>
+          {/* <header className={styles.header}>
             <h3 className={styles.title}>{v.house_title}</h3>
             <p className={`${styles.status} ${v.statusCode === "O_001_05" && styles.cancel}`}>{v.statusName}</p>
-          </header>
+          </header> */}
           <div
-            className={`${styles.body} ${/O_002/.test(v.statusCode) && styles.group}`}
-            onClick={() => _this.detail(v.id, v.statusCode)}
-            role="button"
-            tabIndex="0"
+            className={styles.detail}
+            onClick={() => this.detail(v.id)}
           >
-            <img
-              className={styles.image}
-              src={v.healthCenteLogo || defaultImg}
-              alt="体检点照片"
-            />
-            <div className={styles.content}>
-              <time className={styles.time}>
-                <span>{moment(v.appointDate).format("YYYY-MM-DD")}</span><span>{v.beginTime}-{v.endTime}</span>
-              </time>
-              <div className={styles.item}>
-                <span>健康体检与结核病防治</span>
-                <span>¥{numeral(v.amount).format("0,0.00")}</span>
+            <div className={styles.goods}>
+              <img src={v.house_image_id.split(",")[0]} alt="icon" />
+              <div className={styles.Introduction}>
+                <div>
+                  <div>{v.house_title}</div>
+                </div>
+                <div><span>{getName(v.house_housetype_id)}</span>-{getDistrictName(v.house_district_id)}-{v.house_name}</div>
+                <div><text>{v.house_rental}元</text><text>{getName(v.house_payment_id)}</text></div>
               </div>
-              {
-                /O_002/.test(v.statusCode) ? (
-                  <div className={styles.price}>
-                    <span className={styles.groupNumber}>共{v.number}人预约体检</span>
-                    <span>¥{numeral(v.amount - v.discountAmount).format("0,0.00")}</span>
-                  </div>
-                ) : (
-                  <div className={`${styles.price} ${styles.flexEnd}`}>
-                    <span>¥{numeral(v.amount - v.discountAmount).format("0,0.00")}</span>
-                  </div>
-                )
-              }
             </div>
           </div>
           {
@@ -352,6 +344,7 @@ class View extends React.Component {
           */}
         </div>
         <div id="modal2refund" />
+        <Nav />
       </div>
     );
   }
