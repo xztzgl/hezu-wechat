@@ -174,7 +174,7 @@ class View extends React.Component {
           }
           const key = Object.keys(values);
           key.map(v => {
-            if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined") {
+            if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined" && typeof (values[v]) !== "number") {
               values[v] = values[v].join(",");
             }
             return true;
@@ -551,7 +551,7 @@ class View extends React.Component {
                 data={getName(10006)}
                 cols={1}
                 {...getFieldProps("orientation_id", {
-                  initialValue: objKey(data) ? [data.orientation_id] : [],
+                  initialValue: objKey(data) ? [data.orientation_id * 1] : [],
                   rules: [{
                     required: true,
                     message: "请选择朝向",

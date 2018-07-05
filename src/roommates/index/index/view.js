@@ -94,7 +94,8 @@ class View extends React.Component {
       renttype: "",
       renttypeArry: [],
       values: {},
-      id: null
+      id: null,
+      data: {}
     };
     this.getimg = this.getimg.bind(this);
     this.submit = this.submit.bind(this);
@@ -158,7 +159,7 @@ class View extends React.Component {
           }
           const key = Object.keys(values);
           key.map(v => {
-            if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined") {
+            if (typeof (values[v]) !== "string" && typeof (values[v]) !== "undefined" && typeof (values[v]) !== "number") {
               values[v] = values[v].join(",");
             }
             return true;
@@ -284,6 +285,7 @@ class View extends React.Component {
                 data={getName(10005)}
                 cols={1}
                 {...getFieldProps("renttype_id", {
+                  initialValue: objKey(data) ? [data.renttype_id * 1] : [],
                   rules: [{
                     required: true,
                     message: "请选择合租类型",
