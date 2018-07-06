@@ -129,19 +129,19 @@ class View extends React.Component {
 
         <div className={styles.documentsAndCustomerService}>
           <div onTouchEnd={() => { this.showOrderList("1"); }}>
-            <span className={styles.healthCertificate}><i>我的订单</i></span>
+            <span className={`${styles.healthCertificate}`}><span className="anticon-order"></span><span>我的订单</span></span>
             <span><Icon type="right" /></span>
           </div>
           <div onTouchEnd={() => { this.myNews(); }}>
-            <span className={styles.healthCertificate}><i>我的消息</i></span>
+            <span className={`${styles.healthCertificate}`}><span className="anticon-news"></span><span>我的消息</span></span>
             <span><Icon type="right" /></span>
           </div>
           <div onTouchEnd={() => { this.myCollection(); }}>
-            <span className={styles.healthCertificate}><i>我的收藏</i></span>
+            <span className={`${styles.healthCertificate}`}><span className="anticon-collection"></span><span>我的收藏</span></span>
             <span><Icon type="right" /></span>
           </div>
           <div onTouchEnd={() => { this.myrelease(); }}>
-            <span className={styles.healthCertificate}><i>我的发布</i></span>
+            <span className={`${styles.healthCertificate}`}><span className="anticon-release"></span><span>我的发布</span></span>
             <span><Icon type="right" /></span>
           </div>
           {
