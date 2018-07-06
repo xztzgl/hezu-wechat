@@ -3,9 +3,8 @@ import React from "react";
 
 
 // import { Tabs, ListView, } from "antd-mobile";
-import { Tabs, ListView, Picker, List, Icon, Modal, } from "antd-mobile";
+import { Modal, Icon } from "antd-mobile";
 // import { StickyContainer, Sticky } from "react-sticky";
-// import history from "srcDir/common/router/history";
 // import store from "store2";
 import fetch from "srcDir/common/ajax/indexWithBody";
 // import fetchUpload from "srcDir/common/ajax/upload";
@@ -28,45 +27,15 @@ const getName = (code) => {
 const getDistrictName = (code) => {
   const district = store.session.get("district");
   const arry = district.filter(v => v.disp_local_id === code);
-  // console.log(arry, 1111);
   return arry.length > 0 ? arry[0].local_name : "";
 };
-// const district = store.session.get("district");
-const district = () => {
-  const data = store.session.get("district");
-  data.map(v => {
-    v.label = v.local_name;
-    v.value = v.disp_local_id;
-    // delete v.local_name;
-    // delete v.disp_local_id;
-    return true;
-  });
-  return data;
-};
-// console.log(district(), 1111111111);
-// const codeMap = store.session.get("codeMap");
-const getNamevalue = (pid) => {
-  const codeMap = store.session.get("codeMap");
-  const arryType = codeMap.filter(v => v.pid === pid);
-  arryType.map(v => {
-    v.label = v.value;
-    v.value = v.code;
-    delete v.code;
-    return true;
-  });
-  return arryType;
-};
-const TabPane = Tabs.TabPane;
+const customerid = store.get("customerId");
 // 创建react组件
 class View extends React.Component {
   constructor(props) {
     super(props);
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
 
     this.state = {
-      dataSource,
       length: -1,
       data: [],
       dataP: [],
@@ -128,18 +97,12 @@ class View extends React.Component {
   }
   setData(data, conditions, num) {
     const _this = this;
-    let url;
-    if (num === 1) {
-      url = "/wechat-house/list";
-    } else {
-      url = "//wechat-person/list";
-    }
     fetch({
       // url: "/wx/account/login",
       // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
-      url, // : "/wechat-house/list",
+      url: "/wechat-favorite/list",
       method: "POST",
-      entity: Object.assign(data, { limit: "10" }),
+      entity: Object.assign(data, { limit: "10", customer_id: customerid }),
       // entity: {
       //   district_id: "1212",
       //   housetype_id: "20301",
@@ -165,7 +128,6 @@ class View extends React.Component {
               });
             }
           } else if (res.entity.content) {
-            // console.log(121212);
             if (num === 1) {
               _this.setState({
                 data: [..._this.state.data, ...res.entity.content],
@@ -232,119 +194,63 @@ class View extends React.Component {
       ]);
     }
   }
-  detail(id) {
-    store.set("product_id", id);
-    // history.push("/housingDetails");
-    history.push("/housingDetails", {
-      id
-    });
+  detail(id, type) {
+    if (type === "1") {
+      history.push("/housingDetails", {
+        id
+      });
+    } else {
+      history.push("/roommates", {
+        id
+      });
+    }
   }
   render() {
-    const { data, dataroommates } = this.state;
-    // const { addRoute } = this.props.router || {};
-    const { getFieldProps } = this.props.form;
-    // console.log(addRoute);
+    const { data, } = this.state;
     return (
       <div className={styles.body}>
-        <div className={styles.search}>
-          <div className="search-s">
-            <div>
-              <Picker
-                extra="按片区"
-                data={district()}
-                cols={1}
-                {...getFieldProps("district_id")}
-                onOk={() => this.getFormValues()}
-              >
-                <List.Item arrow="horizontal">按片区</List.Item>
-              </Picker>
-            </div>
-            <div>
-              <Picker
-                extra="按户型"
-                data={getNamevalue(10003)}
-                cols={1}
-                {...getFieldProps("housetype_id")}
-                onOk={() => this.getFormValues()}
-              >
-                <List.Item arrow="horizontal">按户型</List.Item>
-              </Picker>
-            </div>
-            <div>
-              <Picker
-                extra="按价格"
-                data={getNamevalue(10004)}
-                cols={1}
-                {...getFieldProps("rental_id")}
-                onOk={() => this.getFormValues()}
-              >
-                <List.Item arrow="horizontal">按价格</List.Item>
-              </Picker>
-            </div>
-          </div>
-        </div>
-        <Tabs
-          defaultActiveKey="1"
-          className="tabs-body"
-          swipeable={!true}
-          onChange={this.callback}
-        // className={styles.tabss}
-        >
-          <TabPane key="1" tab="搜房源" >
-            <div style={{ backgroundColor: "#fff", padding: "100px 0 60px 0" }} onTouchEnd={this.onScroll} onTouchMove={this.onTouchMove}>
-              {data.length > 0 && data.map((v, i) => <div
-                key={i}
-                className={styles.detail}
-                onClick={() => this.detail(v.id)}
-              >
-                <div className={styles.goods}>
-                  <img src={v.image_id.split(",")[0]} alt="icon" />
-                  <div className={styles.Introduction}>
+        <div style={{ backgroundColor: "#fff", padding: "0 0 60px 0" }} onTouchEnd={this.onScroll} onTouchMove={this.onTouchMove}>
+          {data.length > 0 && data.map((v, i) => <div
+            key={i}
+            className={styles.detail}
+            onClick={() => this.detail(v.product_id, v.product_type)}
+          >
+            {v.product_type === "2" ? <div className={styles.roommates}>
+              <div>
+                <img src={imgHeader} alt="icon" />
+              </div>
+              <div>
+                <div className={styles.introduction}>
+                  <div className={styles.intro}>
                     <div>
-                      <div>{v.title}</div>
+                      <div>求合租</div>
                     </div>
                     <div><span>{getName(v.housetype_id)}</span>-{getDistrictName(v.district_id)}-{v.house_name}</div>
-                    <div><text>{v.rental}元</text><text>{getName(v.payment_id)}</text></div>
-                  </div>
-                </div>
-              </div>)}
-            </div>
-          </TabPane>
-          <TabPane key="2" tab="找人一起租">
-            <div style={{ backgroundColor: "#fff", padding: "100px 0 60px 0" }} onTouchEnd={this.onScroll} onTouchMove={this.onTouchMove}>
-              {dataroommates.length > 0 && dataroommates.map((v, i) => <div
-                key={i}
-                className={styles.detail}
-              >
-                <div className={styles.roommates}>
-                  <div>
-                    <img src={imgHeader} alt="icon" />
+                    <div><text>{v.rental}元</text><text>{v.checkin_time.split(" ")[0]}</text></div>
                   </div>
                   <div>
-                    <div className={styles.introduction}>
-                      <div className={styles.intro}>
-                        <div>
-                          <div>求合租</div>
-                        </div>
-                        <div><span>{getName(v.housetype_id)}</span>-{getDistrictName(v.district_id)}-{v.house_name}</div>
-                        <div><text>{v.rental}元</text><text>{v.checkin_time.split(" ")[0]}</text></div>
-                      </div>
-                      <div>
-                        <div onClick={() => this.load(v.username)}>
-                          <Icon type="phone" />
-                          <div>电话</div>
-                        </div>
-                      </div>
+                    <div onClick={() => this.load(v.username)}>
+                      <Icon type="phone" />
+                      <div>电话</div>
                     </div>
-                    <div>{v.description}</div>
                   </div>
                 </div>
-              </div>)
-              }
-            </div>
-          </TabPane>
-        </Tabs>
-        <Nav checked={1} />
+                <div>{v.description}</div>
+              </div>
+            </div> :
+              <div className={styles.goods}>
+                <img src={v.house_image_id && v.house_image_id.split(",")[0]} alt="icon" />
+                <div className={styles.Introduction}>
+                  <div>
+                    <div>{v.house_title}</div>
+                  </div>
+                  <div><span>{getName(v.house_housetype_id)}</span>-{getDistrictName(v.house_district_id)}-{v.house_name}</div>
+                  <div><text>{v.house_rental}元</text><text>{getName(v.house_payment_id)}</text></div>
+                </div>
+              </div>}
+          </div>)}
+        </div>
+        <Nav />
       </div>
     );
   }

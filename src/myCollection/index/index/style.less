@@ -1,0 +1,390 @@
+@import url("../../../config.less");
+.header {
+  // position: fixed;
+  // top: 0;
+  // right: 0;
+  // left: 0;
+  // z-index: 10;
+  height: 132px/@pixel;
+  color: @c-fff;
+  div {
+    &:first-child,
+    &:last-child {
+      font-size: @fz-30;
+      text-align: left;
+      color: @c-888;
+      &::before {
+        display: inline-block;
+        width: 46px/@pixel;
+        height: 64px/@pixel;
+        margin: 0 9px/@pixel 0 78px/@pixel;
+        content: "";
+        background: url(srcDir/images/homepage-location@3x.png) no-repeat center;
+        background-size: contain;
+      }
+    }
+    &:last-child {
+      text-align: right;
+      &::before {
+        width: 69px/@pixel;
+        height: 69px/@pixel;
+        margin: 0 78px/@pixel 0 0;
+        vertical-align: middle;
+        background-image: url(srcDir/images/homepage-my@3x.png);
+      }
+    }
+  }
+}
+
+.banner {
+  width: 100%;
+  height: 600px/@pixel;
+}
+
+.entry {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  h4,
+  p {
+    margin: 0;
+    line-height: 1;
+    color: @c-333;
+  }
+  h4 {
+    font-size: @fz-48;
+    font-weight: normal;
+  }
+  p {
+    font-size: @fz-36;
+  }
+  &::before {
+    display: block;
+    width: 98px/@pixel;
+    height: 98px/@pixel;
+    margin: auto;
+    content: "";
+    background: url(srcDir/images/homepage-scan@3x.png) no-repeat center;
+    background-size: contain;
+  }
+}
+
+.verify::before {
+  background-image: url(srcDir/images/homepage-check@3x.png);
+}
+
+.personalBooking::before {
+  width: 95px/@pixel;
+  height: 92px/@pixel;
+  margin: 135px/@pixel auto 42px/@pixel;
+  background-image: url(srcDir/images/homepage-booking@3x.png);
+}
+
+.borderTop,
+.borderBottom,
+.borderLeft,
+.borderRight {
+  position: relative;
+}
+
+.borderTop::after {
+  transform: scaleY(0.2);
+  border-top: 1px solid @c-line;
+  content: ' ';
+  display: block;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0
+}
+
+.groupReservation::before {
+  width: 92px/@pixel;
+  height: 83px/@pixel;
+  margin: 144px/@pixel auto 42px/@pixel;
+  background-image: url(srcDir/images/homepage-group@3x.png);
+}
+
+.organization::before {
+  width: 110px/@pixel;
+  height: 70px/@pixel;
+  margin: 145px/@pixel auto 42px/@pixel;
+  background-image: url(srcDir/images/homepage-nearby@3x.png);
+}
+
+.certification::before {
+  width: 64px/@pixel;
+  height: 84px/@pixel;
+  margin: 129px/@pixel auto 42px/@pixel;
+  background-image: url(srcDir/images/homepage-card@3x.png);
+}
+
+.registration::before {
+  width: 76px/@pixel;
+  height: 90px/@pixel;
+  margin: 129px/@pixel auto 42px/@pixel;
+  background-image: url(srcDir/images/registration.png);
+}
+
+.management::before {
+  width: 76px/@pixel;
+  height: 90px/@pixel;
+  margin: 129px/@pixel auto 42px/@pixel;
+  background-image: url(srcDir/images/management.png);
+}
+
+.keypoint {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 360px/@pixel;
+  background-color: @c-yellow;
+  box-shadow: 0 6px/3 6px 0 @c-shadow;
+  align-content: center;
+  justify-content: center;
+  &::after {
+    position: absolute;
+    top: 30px/@pixel;
+    left: 50%;
+    width: 1px;
+    height: 300px/@pixel;
+    content: "";
+    background-color: @c-line-on-yellow;
+  }
+  .entry {
+    &::before {
+      margin-top: 67px/@pixel;
+    }
+    h4 {
+      margin: 45px/@pixel auto 21px/3 auto;
+    }
+  }
+}
+
+.menu1 {
+  position: relative;
+  width: 100%;
+  height: 924px/@pixel;
+  margin-top: 6px/@pixel;
+  background-color: @c-fff;
+  &::before,
+  &::after {
+    position: absolute;
+    display: block;
+    content: "";
+    background-color: @c-line;
+  } // &::before {
+  //   top: 50%;
+  //   left: 30px/@pixel;
+  //   width: 1182px/@pixel;
+  //   height: 1px;
+  // }
+  &::after {
+    top: 30px/@pixel;
+    left: 50%;
+    width: 1px;
+    transform: scaleX(0.2); // height: 864px/@pixel;
+    height: 464px;
+  }
+  .entry {
+    display: inline-block;
+    width: 50%;
+    height: 50%;
+  }
+}
+
+.menu2 {
+  position: relative;
+  width: 100%;
+  height: 924px/@pixel;
+  margin-top: 6px/@pixel;
+  background-color: @c-fff;
+  &::before,
+  &::after {
+    position: absolute;
+    display: block;
+    content: "";
+    background-color: @c-line;
+  } // &::before {
+  //   top: 50%;
+  //   left: 30px/@pixel;
+  //   width: 1182px/@pixel;
+  //   height: 1px;
+  // }
+  &::after {
+    top: 30px/@pixel;
+    left: 50%;
+    width: 1px;
+    transform: scaleX(0.2); // height: 864px/@pixel;
+    height: 924px/@pixel;
+  }
+  .entry {
+    display: inline-block;
+    width: 50%;
+    height: 50%;
+  }
+}
+
+.body {
+  .am-tabs {
+    position: fixed;
+    height: 100%;
+  }
+}
+
+:global .tabs-body {
+  >div {
+    &:first-child {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+      background: #fff;
+    }
+  }
+  .am-tabs-tab {
+    font-size: 14px !important;
+    color: #108ee9 !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    z-index: 1;
+    border: 1px solid #108ee9;
+    background: rgba(0, 0, 0, 0);
+  }
+  .am-tabs-ink-bar {
+    height: 40px;
+    background-color: #108ee9;
+    border: 1px solid #108ee9;
+  }
+  .am-tabs-bar .am-tabs-tab-active {
+    color: #fff !important;
+  }
+}
+
+.goods {
+  display: flex;
+  padding: 0.2rem 0.3rem;
+  >img {
+    height: 1.68rem;
+    width: 1.68rem;
+  }
+}
+
+.Introduction {
+  padding: 0 0.2rem; // display: flex;
+  // flex-direction: column;
+  display: inline-block;
+  >div {
+    // overflow: hidden;
+    height: 1.68/3rem;
+    &:first-child {
+      >div {
+        // background: red;
+        display: block;
+        overflow: hidden;
+        width: 99%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+    &:nth-child(2) {
+      line-height: 1.68/3rem;
+      font-size: 13px;
+      color: #ddd;
+    }
+    &:nth-child(3) {
+      display: table-cell;
+      vertical-align: bottom;
+      padding: 0;
+      >text {
+        &:first-child {
+          color: red;
+        }
+        &:nth-child(2) {
+          color: #ccc;
+          padding: 0 5px;
+        }
+      } // margin-top: auto;
+      // height: inherit;
+    }
+  }
+}
+
+// 合租样式
+.roommates {
+  display: flex;
+  padding: 0.2rem 0.3rem;
+  >div {
+    &:nth-child(1) {
+      img {
+        border-radius: 100%;
+        height: 1.38rem;
+        width: 1.38rem;
+      }
+    } // &:nth-child(2){
+    //   // border:1px solid green;
+    // }
+    .introduction {
+      display: flex;
+      >div {
+        width: 50%;
+        &:nth-child(2) {
+          padding: 0 0.2rem; // border: 1px salmon solid;
+          border-left: 0;
+          display: inline-flex;
+          align-items: center;
+          width: 90px;
+        }
+      }
+    }
+    .introduction+div {
+      padding: .3rem .2rem;
+    }
+  }
+}
+
+.intro {
+  // width: 45%;
+  flex: 1; // border: 1px solid red;
+  .Introduction;
+  >div {
+    height: 1.38/3rem;
+    &:nth-child(2) {
+      line-height: 1.38/3rem;
+    }
+  }
+}
+
+.detail {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.search {
+  position: fixed;
+  top: 40px;
+  width: 100%;
+  background-color: #ccc;
+  z-index: 1;
+  >div {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    >div {
+      flex: 1;
+    }
+  }
+}
+
+:global .search-s {
+  .am-list-content {
+    display: none;
+  }
+  .am-list-extra {
+    flex: 1;
+    text-align: left;
+  }
+  .am-list-arrow {
+    width: 10px;
+  }
+}

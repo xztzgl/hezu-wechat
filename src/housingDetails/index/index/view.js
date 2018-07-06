@@ -11,12 +11,12 @@
 import React from "react";
 import styles from "./style.less";
 // import Nav from "srcDir/common/viewform/navigation/index";
-import { Carousel, Toast } from "antd-mobile";
+import { Carousel, Toast, Modal } from "antd-mobile";
 import fetch from "srcDir/common/ajax/indexWithBody";
-
+const alert = Modal.alert;
 import store from "store2";
 const customerid = store.get("customerId");
-const productid = store.get("product_id");
+// const _this.state.id = store.get("product_id");
 const getName = (code) => {
   const codeMap = store.session.get("codeMap");
   const arry = codeMap.filter(v => v.code === code);
@@ -54,7 +54,7 @@ const getClassName = (value) => {
   const classname = fontName.filter(v => v.label === value);
   return classname.length > 0 ? classname[0].value : "";
 };
-import history from "srcDir/common/router/history";
+// import history from "srcDir/common/router/history";
 // import { Carousel, InputItem, Picker, List, DatePicker, TextareaItem, Toast } from "antd-mobile";
 // 创建react组件
 class View extends React.Component {
@@ -71,23 +71,26 @@ class View extends React.Component {
     this.subscribe = this.subscribe.bind(this);
   }
   componentDidMount() {
-    this.getData();
+    // console.log(this.props, 1111111);
+    const id = this.props.router.history.location.state;
+    this.getData(id.id);
   }
-  getData() {
+  getData(id) {
     const _this = this;
     fetch({
       url: "/wechat-house/get",
       method: "POST",
       entity: {
-        customer_id: customerid,
-        product_id: productid
+        customer_id: customerid + "",
+        product_id: id + ""
       },
       success(res) {
         if (res.entity.success) {
           _this.setState({
             data: res.entity.data,
-            customerMobile: res.entity.customer_mobile,
-            favorited: res.entity.favorited
+            // customerMobile: res.entity.customer_mobile,
+            favorited: res.entity.favorited,
+            id
           });
         }
       }
@@ -106,7 +109,7 @@ class View extends React.Component {
       method: "POST",
       entity: {
         customer_id: customerid,
-        product_id: productid,
+        product_id: _this.state.id,
         product_type: e,
       },
       success(res) {
@@ -120,6 +123,7 @@ class View extends React.Component {
     });
   }
   subscribe() {
+    const _this = this;
     fetch({
       url: "/wechat-order/order",
       // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
@@ -127,21 +131,27 @@ class View extends React.Component {
       method: "POST",
       entity: {
         customer_id: customerid,
-        product_id: productid,
+        product_id: _this.state.id,
         // product_type: e,
       },
       success(res) {
-        if (res.entity.success) {
-          Toast.success("预约成功", 1.5, () => {
-            history.push("/homepage");
-          });
+        const data = res.entity;
+        if (data.success) {
+          if (data.customer_mobile.length > 0) {
+            alert(<div>{data.customer_mobile}</div>, "现在就联系吗？", [
+              { text: "再看看", onPress: () => { } },
+              { text: <div><a href={`tel:${data.customer_mobile}`}>马上联系</a></div>, onPress: () => { } },
+            ]);
+          } else {
+            Toast.success("预约成功，房主设置两小时后才能联系他/她", 1.5);
+          }
         }
         // console.log(res, 123123123);
       }
     });
   }
   render() {
-    const { data, customerMobile, favorited } = this.state;
+    const { data, favorited } = this.state;
     return (
       <div>
         {
@@ -247,10 +257,10 @@ class View extends React.Component {
                 }
               </div>
             </div>
-            <div className={styles.contact}>
+            {/* <div className={styles.contact}>
               <div>联系方式</div>
               <div>{customerMobile}</div>
-            </div>
+            </div> */}
 
             <div className={styles.describe}>
               <div>描述</div>

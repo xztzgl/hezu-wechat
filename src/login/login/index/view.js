@@ -104,8 +104,16 @@ class View extends React.Component {
             store.set("customerId", data.customer_id);
             // store.set("userType", JSON.parse(res.entity).obj.userType);
             // const url = store.session.get("page");
-            const origin = window.location.origin;
-            window.location.href = `${origin}`;
+            if (data.signed) {
+              const origin = window.location.origin;
+              window.location.href = `${origin}`;
+            } else {
+              history.push("/registered/", {
+                username: phonelength
+              });
+            }
+            // const origin = window.location.origin;
+            // window.location.href = `${origin}`;
             // if (url && url !== "") {
             //   Toast.success(data.msg, 2, () => {
             //     // history.push("homepage/");

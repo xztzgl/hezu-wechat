@@ -76,6 +76,14 @@ class View extends React.Component {
     // console.log(11);
     history.push("/release");
   }
+  myNews() {
+    // console.log(11);
+    history.push("/myNews");
+  }
+  myCollection() {
+    // console.log(11);
+    history.push("/myCollection");
+  }
   render() {
     // console.log(this.props);
     return (
@@ -124,11 +132,11 @@ class View extends React.Component {
             <span className={styles.healthCertificate}><i>我的订单</i></span>
             <span><Icon type="right" /></span>
           </div>
-          <div onTouchEnd={() => { this.electronicHealthCertificate(); }}>
+          <div onTouchEnd={() => { this.myNews(); }}>
             <span className={styles.healthCertificate}><i>我的消息</i></span>
             <span><Icon type="right" /></span>
           </div>
-          <div onTouchEnd={() => { this.electronicHealthCertificate(); }}>
+          <div onTouchEnd={() => { this.myCollection(); }}>
             <span className={styles.healthCertificate}><i>我的收藏</i></span>
             <span><Icon type="right" /></span>
           </div>

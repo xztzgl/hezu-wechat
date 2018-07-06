@@ -2,7 +2,7 @@
  * Created Date: Thursday June 21st 2018 5:21:28 pm
  * Author: gumingxing
  * -----
- * Last Modified:Thursday July 5th 2018 3:29:30 pm
+ * Last Modified:Thursday July 5th 2018 2:48:26 pm
  * Modified By: gumingxing
  * -----
  * Copyright (c) 2018 MagCloud
@@ -11,7 +11,7 @@
 import React from "react";
 import styles from "./style.less";
 import { createForm } from "rc-form";
-import { Picker, List, DatePicker, Toast } from "antd-mobile";
+import { Picker, List, DatePicker, TextareaItem, Toast } from "antd-mobile";
 import history from "srcDir/common/router/history";
 // import history from "srcDir/common/router/history";
 // import TakePictures from "srcDir/common/viewform/takePictures/view";
@@ -21,34 +21,34 @@ import fetch from "srcDir/common/ajax/indexWithBody";
 // const maxDate = moment("2016-12-03 +0800", "YYYY-MM-DD Z").utcOffset(8);
 // const minDate = moment("2015-08-06 +0800", "YYYY-MM-DD Z").utcOffset(8);
 const customerid = store.get("customerId");
-const getcity = (id) => {
-  const district = store.session.get("district");
-  const pid = district.filter(v => v.disp_local_id === id)[0].pid;
-  // console.log(pid, 11);
-  return district.filter(v => v.disp_local_id === pid)[0].disp_local_id;
-};
-const city = () => {
-  const district = store.session.get("district");
-  district.map(v => {
-    v.label = v.local_name;
-    v.value = v.disp_local_id;
-    return true;
-  });
-  const first = district.filter(v => v.value === 1);
-  const dd = (data) => {
-    data.map(v => {
-      const b = district.filter(va => va.pid === v.value);
-      if (b.length > 0) {
-        v.children = b;
-        dd(b);
-      }
-      return true;
-    });
-    return data;
-  };
-  dd(first);
-  return first;
-};
+// const getcity = (id) => {
+//   const district = store.session.get("district");
+//   const pid = district.filter(v => v.disp_local_id === id)[0].pid;
+//   // console.log(pid, 11);
+//   return district.filter(v => v.disp_local_id === pid)[0].disp_local_id;
+// };
+// const city = () => {
+//   const district = store.session.get("district");
+//   district.map(v => {
+//     v.label = v.local_name;
+//     v.value = v.disp_local_id;
+//     return true;
+//   });
+//   const first = district.filter(v => v.value === 1);
+//   const dd = (data) => {
+//     data.map(v => {
+//       const b = district.filter(va => va.pid === v.value);
+//       if (b.length > 0) {
+//         v.children = b;
+//         dd(b);
+//       }
+//       return true;
+//     });
+//     return data;
+//   };
+//   dd(first);
+//   return first;
+// };
 // const fontName = [
 //   { label: "电视", value: "anticon-tv" },
 //   { label: "冰箱", value: "anticon-refrigerator" },
@@ -95,8 +95,7 @@ class View extends React.Component {
       renttypeArry: [],
       values: {},
       id: null,
-      data: {},
-      height: document.documentElement.clientHeight
+      data: {}
     };
     this.getimg = this.getimg.bind(this);
     this.submit = this.submit.bind(this);
@@ -153,9 +152,9 @@ class View extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log(values, 12121); // /wechat-house/add
-        if (values.birth_year) {
-          const date = new Date(values.birth_year._d);
-          values.birth_year = date.getFullYear(); // + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        if (values.sign_time) {
+          const date = new Date(values.sign_time._d);
+          values.checkin_time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         }
         const key = Object.keys(values);
         key.map(v => {
@@ -164,12 +163,12 @@ class View extends React.Component {
           }
           return true;
         });
-        values.creator_id = customerid + "";
-        values.username = _this.props.router.history.location.state.username;
+        values.creator_id = customerid;
+        values.id = _this.props.router.history.location.state.id;
         fetch({
           // url: "/wx/account/login",
           // url: `${configURL.remoteServer.urlHome} + "/wechat-house/list"`,
-          url: "/wechat-login/sign",
+          url: "/wechat-order/evaluate",
           method: "POST",
           entity: values,
           success(res) {
@@ -217,71 +216,14 @@ class View extends React.Component {
     const { data } = this.state;
     return (
       <div className={styles.nav}>
-        <div style={{ height: this.state.height, display: "flex", flexDirection: "column" }}>
-          <div className={`${styles.fromStyle} style`}>
-            <div>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
-            <div>
-              <Picker
-                data={getName(10001)}
-                cols={1}
-                {...getFieldProps("gender", {
-                  // initialValue: objKey(data) ? [data.gender_id] : [],
-                  rules: [{
-                    required: true,
-                    message: "请选择评价",
-                  }],
-                })}
-              >
-                <List.Item arrow="horizontal">性别</List.Item>
-              </Picker>
-            </div>
-          </div>
-          <div className={`${styles.fromStyle} style`}>
-            <div>出生年份</div>
-            <div>
-              <DatePicker
-                mode="date"
-                title="选择日期"
-                // extra="可选,小于结束日期"
-                // format="YYYY-MM-DD"
-                {...getFieldProps("birth_year", {
-                  // initialValue: objKey(data) ? moment(data.sign_time, "YYYY-MM-DD") : "",
-                  rules: [{
-                    required: true,
-                    message: "请选择时间",
-                  }],
-                })}
-                // minDate={minDate}
-                // maxDate={maxDate}
-              >
-                <List.Item arrow="horizontal">日期(CST)</List.Item>
-              </DatePicker>
-            </div>
-          </div>
-          <div className={`${styles.fromStyle} style`}>
-            <div>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</div>
-            <div>
-              <Picker
-                data={getName(10002)}
-                cols={1}
-                {...getFieldProps("vocation", {
-                  rules: [{
-                    required: true,
-                    message: "请选择朝向",
-                  }],
-                })}
-              >
-                <List.Item arrow="horizontal">职业</List.Item>
-              </Picker>
-            </div>
-          </div>
-          <div className={`${styles.fromStyle} style`}>
-            <div>所在区域</div>
+        <div style={{ marginTop: 6 }}>
+          {/* <div className={`${styles.fromStyle} style`}>
+            <div>片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区</div>
             <div>
               <Picker
                 data={city()}
                 // cols={1}
-                {...getFieldProps("district", {
+                {...getFieldProps("district_id", {
                   initialValue: objKey(data) ? [1, getcity(data.district_id), data.district_id] : [],
                   rules: [{
                     required: true,
@@ -293,7 +235,184 @@ class View extends React.Component {
               </Picker>
             </div>
           </div>
-          <div className={styles.submit} style={{ marginTop: "auto" }} onClick={() => this.submit()}>提交</div>
+          <div className={`${styles.fromStyle} style`}>
+            <div>合租类型</div>
+            <div>
+              <Picker
+                data={getName(10005)}
+                cols={1}
+                {...getFieldProps("renttype_id", {
+                  initialValue: objKey(data) ? [data.renttype_id * 1] : [],
+                  rules: [{
+                    required: true,
+                    message: "请选择合租类型",
+                  }],
+                })}
+              >
+                <List.Item arrow="horizontal">合租</List.Item>
+              </Picker>
+            </div>
+          </div>
+          <div className={`${styles.fromStyle} style`}>
+            <div>租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金</div>
+            <div className="numberStyle">
+              <InputItem
+                {...getFieldProps("rental", {
+                  normalize: (v, prev) => {
+                    if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
+                      if (v === ".") {
+                        return "0.";
+                      }
+                      return prev;
+                    }
+                    return v;
+                  },
+                  initialValue: objKey(data) ? data.rental : "",
+                  rules: [{
+                    required: true,
+                    message: "请输入租金",
+                  }],
+                })}
+                type="money"
+                placeholder="价格"
+                onFocus={() => {
+                  this.setState({
+                    moneyfocused: false,
+                  });
+                }}
+                focused={this.state.moneyfocused}
+              >
+                元/月
+              </InputItem>
+            </div>
+          </div> */}
+          <div className={`${styles.fromStyle} style`}>
+            <div>签约时间</div>
+            <div>
+              <DatePicker
+                mode="date"
+                title="选择日期"
+                // extra="可选,小于结束日期"
+                // format="YYYY-MM-DD"
+                {...getFieldProps("sign_time", {
+                  // initialValue: objKey(data) ? moment(data.sign_time, "YYYY-MM-DD") : "",
+                  rules: [{
+                    required: true,
+                    message: "请选择入住时间",
+                  }],
+                })}
+                // minDate={minDate}
+                // maxDate={maxDate}
+              >
+                <List.Item arrow="horizontal">日期(CST)</List.Item>
+              </DatePicker>
+            </div>
+          </div>
+          <div className={`${styles.fromStyle} style`}>
+            <div>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</div>
+            <div>
+              <Picker
+                data={getName(10001)}
+                cols={1}
+                {...getFieldProps("evaluation", {
+                  // initialValue: objKey(data) ? [data.gender_id] : [],
+                  rules: [{
+                    required: true,
+                    message: "请选择评价",
+                  }],
+                })}
+              >
+                <List.Item arrow="horizontal">评价</List.Item>
+              </Picker>
+            </div>
+          </div>
+          {/* <div className={`${styles.fromStyle} style`}>
+            <div>朝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;向</div>
+            <div>
+              <Picker
+                data={getName(10006)}
+                cols={1}
+                {...getFieldProps("orientation_id", {
+                  rules: [{
+                    required: true,
+                    message: "请选择朝向",
+                  }],
+                })}
+              >
+                <List.Item arrow="horizontal">朝向</List.Item>
+              </Picker>
+            </div>
+          </div> */}
+          {/* <div className={`${styles.fromStyle} style`}>
+            <div>装&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修</div>
+            <div>
+              <Picker
+                data={getName(10007)}
+                cols={1}
+                {...getFieldProps("decoration_id", {
+                  rules: [{
+                    required: true,
+                    message: "请选择装修",
+                  }],
+                })}
+              >
+                <List.Item arrow="horizontal">装修</List.Item>
+              </Picker>
+            </div>
+          </div> */}
+          {/* <div className={`${styles.fromStyle} style`}>
+            <div>支付方式</div>
+            <div>
+              <Picker
+                data={getName(10008)}
+                cols={1}
+                {...getFieldProps("payment_id", {
+                  rules: [{
+                    required: true,
+                    message: "请选择支付方式",
+                  }],
+                })}
+              >
+                <List.Item arrow="horizontal">支付方式</List.Item>
+              </Picker>
+            </div>
+          </div> */}
+          {/* <div className={`${styles.fromStyle} style`}>
+            <div>信息可见</div>
+            <div>
+              <Picker
+                data={getName(10009)}
+                cols={1}
+                {...getFieldProps("seentime_id", {
+                  rules: [{
+                    required: true,
+                    message: "请选择信息可见",
+                  }],
+                })}
+              >
+                <List.Item arrow="horizontal">信息可见</List.Item>
+              </Picker>
+            </div>
+          </div> */}
+          <div className={`${styles.fromStyle} ${styles.textarea}`}>
+            <div>描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述</div>
+            <div>
+              <TextareaItem
+                {...getFieldProps("description", {
+                  initialValue: objKey(data) ? data.description : "",
+                  rules: [{
+                    required: true,
+                    message: "请编写描述",
+                  }],
+                })}
+                // title="高度自适应"
+                autoHeight
+                rows={3}
+                placeholder="描述"
+              />
+            </div>
+          </div>
+          <div className={styles.submit} onClick={() => this.submit()}>发布</div>
         </div>
       </div>
     );

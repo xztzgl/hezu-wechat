@@ -239,9 +239,17 @@ class View extends React.Component {
       }
     });
   }
-  detail(id) {
-    store.set("product_id", id);
-    history.push("/housingDetails");
+  detail(pid, status, id) {
+    // store.set("product_id", id);
+    if (status === "21002") {
+      history.push("/housingDetails", {
+        id: pid
+      });
+    } else {
+      history.push("/evaluate", {
+        id
+      });
+    }
   }
   toRefund(id) {
     // console.log(id);
@@ -267,7 +275,7 @@ class View extends React.Component {
           </header> */}
           <div
             className={styles.detail}
-            onClick={() => this.detail(v.id)}
+            onClick={() => this.detail(v.product_id, v.status_id, v.id)}
           >
             <div className={styles.goods}>
               <img src={v.house_image_id.split(",")[0]} alt="icon" />
@@ -332,7 +340,7 @@ class View extends React.Component {
     const _this = this;
     const { props } = this;
     return (
-      <div>
+      <div style={{ paddingBottom: "60px" }}>
         <div
           id={`listWrapper${props.typeId}`}
           className={styles.listWrapper}
