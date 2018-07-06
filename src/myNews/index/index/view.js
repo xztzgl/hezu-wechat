@@ -206,7 +206,7 @@ class View extends React.Component {
           {data.length > 0 && data.map((v, i) => <div
             key={i}
             className={styles.detail}
-            onClick={() => this.detail(v.id, v.product_type)}
+            // onClick={() => this.detail(v.id, v.product_type)}
           >
             <div className={styles.myNews}>
               <div className="anticon-news">
