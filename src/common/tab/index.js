@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./style.less";
+// import styles from "./style.less";
 import { Tabs } from "antd-mobile";
 const TabPane = Tabs.TabPane;
 // const onTabClick = (key) => {
@@ -8,11 +8,11 @@ const TabPane = Tabs.TabPane;
 // };
 const Tab = (props) => {
   console.log("tab");
-  console.log(props);
+  // console.log(props);
   const { conf } = props;
   return (
     <Tabs
-      className={styles.tabTitle}
+      className="tabs-body"
       defaultActiveKey={conf.defaultKey}
       animated={false}
       // onTabClick={onTabClick}

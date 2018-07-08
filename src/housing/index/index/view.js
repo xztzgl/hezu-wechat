@@ -376,17 +376,29 @@ class View extends React.Component {
                 第<InputItem
                   {...getFieldProps("floor_layer", {
                     initialValue: objKey(data) ? data.floor_layer : "",
+                    normalize: (v) => {
+                      if (v && (v.charAt(0) === "0" || v.indexOf(".") >= 0)) {
+                        return v.replace(/^0*(\d*).*$/, "$1");
+                      }
+                      return v;
+                    },
                     rules: [{
                       required: true,
                       message: "请输入所在楼层",
                     }],
                   })}
-                  type="number"
+                  type="money"// type="number"
                 />层   公
                 <InputItem
-                  type="number"
+                  type="money"
                   {...getFieldProps("floor_total", {
                     initialValue: objKey(data) ? data.floor_total : "",
+                    normalize: (v) => {
+                      if (v && (v.charAt(0) === "0" || v.indexOf(".") >= 0)) {
+                        return v.replace(/^0*(\d*).*$/, "$1");
+                      }
+                      return v;
+                    },
                     rules: [{
                       required: true,
                       message: "请输入楼层总数",

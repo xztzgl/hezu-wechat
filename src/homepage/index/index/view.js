@@ -3,7 +3,7 @@ import React from "react";
 
 
 // import { Tabs, ListView, } from "antd-mobile";
-import { Tabs, ListView, Picker, List, Icon, Modal, } from "antd-mobile";
+import { Tabs, ListView, Picker, List, Modal, } from "antd-mobile";
 // import { StickyContainer, Sticky } from "react-sticky";
 // import history from "srcDir/common/router/history";
 // import store from "store2";
@@ -20,41 +20,72 @@ const alert = Modal.alert;
 // let pageIndex = 0;
 const getName = (code) => {
   const codeMap = store.session.get("codeMap");
-  const arry = codeMap.filter(v => v.code === code);
-  return arry.length > 0 ? arry[0].value : "";
+  if (codeMap) {
+    const arry = codeMap.filter(v => v.code === code);
+    return arry.length > 0 ? arry[0].value : "";
+  }
 };
 
 // city();
 const getDistrictName = (code) => {
   const district = store.session.get("district");
-  const arry = district.filter(v => v.disp_local_id === code);
-  // console.log(arry, 1111);
-  return arry.length > 0 ? arry[0].local_name : "";
+  if (district) {
+    const arry = district.filter(v => v.disp_local_id === code);
+    // console.log(arry, 1111);
+    return arry.length > 0 ? arry[0].local_name : "";
+  }
 };
 // const district = store.session.get("district");
-const district = () => {
-  const data = store.session.get("district");
-  data.map(v => {
-    v.label = v.local_name;
-    v.value = v.disp_local_id;
-    // delete v.local_name;
-    // delete v.disp_local_id;
-    return true;
-  });
-  return data;
+// const district = () => {
+//   const data = store.session.get("district");
+//   data.map(v => {
+//     v.label = v.local_name;
+//     v.value = v.disp_local_id;
+//     // delete v.local_name;
+//     // delete v.disp_local_id;
+//     return true;
+//   });
+//   return data;
+// };
+
+const city = () => {
+  const district = store.session.get("district");
+  if (district) {
+    district.map(v => {
+      v.label = v.local_name;
+      v.value = v.disp_local_id;
+      return true;
+    });
+    const first = district.filter(v => v.value === 1);
+    const dd = (data) => {
+      data.map(v => {
+        const b = district.filter(va => va.pid === v.value);
+        if (b.length > 0) {
+          v.children = b;
+          dd(b);
+        }
+        return true;
+      });
+      return data;
+    };
+    dd(first);
+    return first;
+  }
 };
 // console.log(district(), 1111111111);
 // const codeMap = store.session.get("codeMap");
 const getNamevalue = (pid) => {
   const codeMap = store.session.get("codeMap");
-  const arryType = codeMap.filter(v => v.pid === pid);
-  arryType.map(v => {
-    v.label = v.value;
-    v.value = v.code;
-    delete v.code;
-    return true;
-  });
-  return arryType;
+  if (codeMap) {
+    const arryType = codeMap.filter(v => v.pid === pid);
+    arryType.map(v => {
+      v.label = v.value;
+      v.value = v.code;
+      delete v.code;
+      return true;
+    });
+    return arryType;
+  }
 };
 const TabPane = Tabs.TabPane;
 // 创建react组件
@@ -202,6 +233,7 @@ class View extends React.Component {
     });
   }
   callback(key) {
+    this.props.form.resetFields();
     if (key === "1") {
       this.setState({
         num: 1,
@@ -251,8 +283,8 @@ class View extends React.Component {
             <div>
               <Picker
                 extra="按片区"
-                data={district()}
-                cols={1}
+                data={city()}
+                // cols={1}
                 {...getFieldProps("district_id")}
                 onOk={() => this.getFormValues()}
               >
@@ -331,7 +363,7 @@ class View extends React.Component {
                       </div>
                       <div>
                         <div onClick={() => this.load(v.username)}>
-                          <Icon type="phone" />
+                          <div className=""></div>
                           <div>电话</div>
                         </div>
                       </div>
