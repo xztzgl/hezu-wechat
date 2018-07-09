@@ -89,17 +89,17 @@ class View extends React.Component {
     this.getSession();
   }
   getSession() {
+    const _this = this;
     const o = setInterval(() => {
       const district = store.session.get("district");
       const codeMap = store.session.get("district");
       if (district && codeMap) {
-        this.setState({
-          open: true,
-        }, () => {
-          clearInterval(o);
+        clearInterval(o);
+        _this.setState({
+          open: false,
         });
       }
-    });
+    }, 500);
   }
 
   // $passing(id) {
@@ -131,7 +131,7 @@ class View extends React.Component {
             <Spin />
             <nav className={styles.nav} />
             <article id="contentContainer" className={styles.content} >
-              {this.state.open && <Home />}
+              {this.state.open ? <Home /> : ""}
             </article>
             <ChooseLocation />
           </div>

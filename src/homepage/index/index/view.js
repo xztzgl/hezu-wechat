@@ -20,20 +20,24 @@ const alert = Modal.alert;
 // let pageIndex = 0;
 const getName = (code) => {
   const codeMap = store.session.get("codeMap");
+  let data;
   if (codeMap) {
     const arry = codeMap.filter(v => v.code === code);
-    return arry.length > 0 ? arry[0].value : "";
+    data = arry.length > 0 ? arry[0].value : "";
   }
+  return data || [];
 };
 
 // city();
 const getDistrictName = (code) => {
   const district = store.session.get("district");
+  let data;
   if (district) {
     const arry = district.filter(v => v.disp_local_id === code);
     // console.log(arry, 1111);
-    return arry.length > 0 ? arry[0].local_name : "";
+    data = arry.length > 0 ? arry[0].local_name : "";
   }
+  return data || [];
 };
 // const district = store.session.get("district");
 // const district = () => {
@@ -50,6 +54,7 @@ const getDistrictName = (code) => {
 
 const city = () => {
   const district = store.session.get("district");
+  let dataName;
   if (district) {
     district.map(v => {
       v.label = v.local_name;
@@ -69,8 +74,9 @@ const city = () => {
       return data;
     };
     dd(first);
-    return first;
+    dataName = [{ label: "全部", value: "" }].concat(first);
   }
+  return dataName || [];
 };
 // console.log(district(), 1111111111);
 // const codeMap = store.session.get("codeMap");
@@ -164,6 +170,10 @@ class View extends React.Component {
       url = "/wechat-house/list";
     } else {
       url = "//wechat-person/list";
+    }
+    if (data.district_id) {
+      const arr = data.district_id.split(",");
+      data.district_id = arr[arr.length - 1] + "";
     }
     fetch({
       // url: "/wx/account/login",
