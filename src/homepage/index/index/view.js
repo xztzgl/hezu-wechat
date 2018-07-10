@@ -275,17 +275,14 @@ class View extends React.Component {
     }
   }
   detail(id) {
-    store.set("product_id", id);
-    // history.push("/housingDetails");
+    // store.set("product_id", id);
     history.push("/housingDetails", {
       id
     });
   }
   render() {
     const { data, dataroommates } = this.state;
-    // const { addRoute } = this.props.router || {};
     const { getFieldProps } = this.props.form;
-    // console.log(addRoute);
     return (
       <div className={styles.body}>
         <div className={styles.search}>
@@ -373,7 +370,7 @@ class View extends React.Component {
                       </div>
                       <div>
                         <div onClick={() => this.load(v.username)}>
-                          <div className=""></div>
+                          <div className="anticon-phone"></div>
                           <div>电话</div>
                         </div>
                       </div>

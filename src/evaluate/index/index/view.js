@@ -11,7 +11,7 @@
 import React from "react";
 import styles from "./style.less";
 import { createForm } from "rc-form";
-import { Picker, List, DatePicker, TextareaItem, Toast } from "antd-mobile";
+import { List, DatePicker, TextareaItem, Toast } from "antd-mobile";
 import history from "srcDir/common/router/history";
 // import history from "srcDir/common/router/history";
 // import TakePictures from "srcDir/common/viewform/takePictures/view";
@@ -66,17 +66,17 @@ const customerid = store.get("customerId");
 //   return classname.length > 0 ? classname[0].value : "";
 // };
 // const codeMap = store.session.get("codeMap");
-const getName = (pid) => {
-  const codeMap = store.session.get("codeMap");
-  const arryType = codeMap.filter(v => v.pid === pid);
-  arryType.map(v => {
-    v.label = v.value;
-    v.value = v.code;
-    delete v.code;
-    return true;
-  });
-  return arryType;
-};
+// const getName = (pid) => {
+//   const codeMap = store.session.get("codeMap");
+//   const arryType = codeMap.filter(v => v.pid === pid);
+//   arryType.map(v => {
+//     v.label = v.value;
+//     v.value = v.code;
+//     delete v.code;
+//     return true;
+//   });
+//   return arryType;
+// };
 const objKey = (value) => {
   const arry = Object.keys(value).length > 0;
   // console.log(value, Object.keys(value), 1111111);
@@ -95,12 +95,15 @@ class View extends React.Component {
       renttypeArry: [],
       values: {},
       id: null,
-      data: {}
+      data: {},
+      starArr: []
     };
-    this.getimg = this.getimg.bind(this);
+    // this.getimg = this.getimg.bind(this);
     this.submit = this.submit.bind(this);
-    this.checkBox = this.checkBox.bind(this);
-    this.getData = this.getData.bind(this);
+    // this.checkBox = this.checkBox.bind(this);
+    // this.getData = this.getData.bind(this);
+    this.start = this.start.bind(this);
+    this.checked = this.checked.bind(this);
     // console.log(props, 2222);
   }
   componentDidMount() {
@@ -110,43 +113,43 @@ class View extends React.Component {
     //   this.getData(id.id);
     // }
   }
-  getData(id) {
-    const _this = this;
-    fetch({
-      url: "/wechat-house/get",
-      method: "POST",
-      entity: {
-        customer_id: customerid,
-        product_id: id
-      },
-      success(res) {
-        if (res.entity.success) {
-          const data = res.entity.data;
-          _this.setState({
-            data,
-            imgdata: data.image_id.split(","),
-            // : data.infrastructure_id.
-            renttypeArry: data.infrastructure_id.split(","),
-            renttype: data.infrastructure_id,
-            id
-            // customerMobile: res.entity.customer_mobile,
-            // favorited: res.entity.favorited
-          });
-        }
-      }
-    });
-  }
-  getimg(e) {
-    // alert(111);
-    const dd = [...this.state.imgdata, ...[e]];
-    // console.log(dd, e);
-    this.props.form.setFieldsValue({
-      image_id: dd.join(","),
-    });
-    this.setState({
-      imgdata: dd,
-    });
-  }
+  // getData(id) {
+  //   const _this = this;
+  //   fetch({
+  //     url: "/wechat-house/get",
+  //     method: "POST",
+  //     entity: {
+  //       customer_id: customerid,
+  //       product_id: id
+  //     },
+  //     success(res) {
+  //       if (res.entity.success) {
+  //         const data = res.entity.data;
+  //         _this.setState({
+  //           data,
+  //           imgdata: data.image_id.split(","),
+  //           // : data.infrastructure_id.
+  //           renttypeArry: data.infrastructure_id.split(","),
+  //           renttype: data.infrastructure_id,
+  //           id
+  //           // customerMobile: res.entity.customer_mobile,
+  //           // favorited: res.entity.favorited
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
+  // getimg(e) {
+  //   // alert(111);
+  //   const dd = [...this.state.imgdata, ...[e]];
+  //   // console.log(dd, e);
+  //   this.props.form.setFieldsValue({
+  //     image_id: dd.join(","),
+  //   });
+  //   this.setState({
+  //     imgdata: dd,
+  //   });
+  // }
   submit() {
     const _this = this;
     this.props.form.validateFields((err, values) => {
@@ -154,7 +157,7 @@ class View extends React.Component {
         // console.log(values, 12121); // /wechat-house/add
         if (values.sign_time) {
           const date = new Date(values.sign_time._d);
-          values.checkin_time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+          values.sign_time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         }
         const key = Object.keys(values);
         key.map(v => {
@@ -187,105 +190,65 @@ class View extends React.Component {
       }
     });
   }
-  checkBox(e, value) {
-    // splice
-    // console.log(e, 1111);
-    const ele = e.target.parentElement;
-    const a = this.state.renttypeArry;
-    const index = a.indexOf(value);
+  // checkBox(e, value) {
+  //   // splice
+  //   // console.log(e, 1111);
+  //   const ele = e.target.parentElement;
+  //   const a = this.state.renttypeArry;
+  //   const index = a.indexOf(value);
+  //   let arry;
+  //   if (index > -1) {
+  //     a.splice(index, 1);
+  //     ele.style.color = "";
+  //     arry = a;
+  //   } else {
+  //     ele.style.color = "green";
+  //     arry = [...this.state.renttypeArry, ...[value]];
+  //   }
+  //   // console.log(arry, arry.join(","), index);
+  //   this.setState({
+  //     renttypeArry: arry,
+  //     renttype: arry.join(","),
+  //   });
+  //   // this.props.form.setFieldsValue({
+  //   //   infrastructure_id: arry.join(",")
+  //   // });
+  // } // checkBox
+  start(e) {
+    const { starArr } = this.state;
+    // const star = starArr.includes(e);
+    // if (star) {
+    //   this.setState({
+    //     starArr: [...starArr, ...[e]]
+    //   });
+    // } else {
+
+    // }
+    const index = starArr.indexOf(e);
     let arry;
     if (index > -1) {
-      a.splice(index, 1);
-      ele.style.color = "";
-      arry = a;
+      starArr.splice(index, 1);
+      // ele.style.color = "";
+      arry = starArr;
     } else {
-      ele.style.color = "green";
-      arry = [...this.state.renttypeArry, ...[value]];
+      // ele.style.color = "green";
+      arry = [...starArr, ...[e]];
     }
-    // console.log(arry, arry.join(","), index);
     this.setState({
-      renttypeArry: arry,
-      renttype: arry.join(","),
+      starArr: arry,
+      renttype: arry.length > 0 ? arry[arry.length - 1] : "",
     });
-    // this.props.form.setFieldsValue({
-    //   infrastructure_id: arry.join(",")
-    // });
-  } // checkBox
+  }
+  checked(e) {
+    const c = this.state.starArr.includes(e);
+    return c;
+  }
   render() {
     const { getFieldProps } = this.props.form;
-    const { data } = this.state;
+    const { data, renttype } = this.state;
     return (
       <div className={styles.nav}>
         <div style={{ marginTop: 6 }}>
-          {/* <div className={`${styles.fromStyle} style`}>
-            <div>片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区</div>
-            <div>
-              <Picker
-                data={city()}
-                // cols={1}
-                {...getFieldProps("district_id", {
-                  initialValue: objKey(data) ? [1, getcity(data.district_id), data.district_id] : [],
-                  rules: [{
-                    required: true,
-                    message: "请选择片区",
-                  }],
-                })}
-              >
-                <List.Item arrow="horizontal">片区</List.Item>
-              </Picker>
-            </div>
-          </div>
-          <div className={`${styles.fromStyle} style`}>
-            <div>合租类型</div>
-            <div>
-              <Picker
-                data={getName(10005)}
-                cols={1}
-                {...getFieldProps("renttype_id", {
-                  initialValue: objKey(data) ? [data.renttype_id * 1] : [],
-                  rules: [{
-                    required: true,
-                    message: "请选择合租类型",
-                  }],
-                })}
-              >
-                <List.Item arrow="horizontal">合租</List.Item>
-              </Picker>
-            </div>
-          </div>
-          <div className={`${styles.fromStyle} style`}>
-            <div>租&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金</div>
-            <div className="numberStyle">
-              <InputItem
-                {...getFieldProps("rental", {
-                  normalize: (v, prev) => {
-                    if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
-                      if (v === ".") {
-                        return "0.";
-                      }
-                      return prev;
-                    }
-                    return v;
-                  },
-                  initialValue: objKey(data) ? data.rental : "",
-                  rules: [{
-                    required: true,
-                    message: "请输入租金",
-                  }],
-                })}
-                type="money"
-                placeholder="价格"
-                onFocus={() => {
-                  this.setState({
-                    moneyfocused: false,
-                  });
-                }}
-                focused={this.state.moneyfocused}
-              >
-                元/月
-              </InputItem>
-            </div>
-          </div> */}
           <div className={`${styles.fromStyle} style`}>
             <div>签约时间</div>
             <div>
@@ -301,16 +264,16 @@ class View extends React.Component {
                     message: "请选择入住时间",
                   }],
                 })}
-                // minDate={minDate}
-                // maxDate={maxDate}
+              // minDate={minDate}
+              // maxDate={maxDate}
               >
                 <List.Item arrow="horizontal">日期(CST)</List.Item>
               </DatePicker>
             </div>
           </div>
-          <div className={`${styles.fromStyle} style`}>
+          <div className={`${styles.fromStyle} style ${styles.evalu}`}>
             <div>评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</div>
-            <div>
+            {/* <div>
               <Picker
                 data={getName(10001)}
                 cols={1}
@@ -324,6 +287,41 @@ class View extends React.Component {
               >
                 <List.Item arrow="horizontal">评价</List.Item>
               </Picker>
+            </div> */}
+            <div>
+              <input
+                style={{ display: "none" }}
+                {...getFieldProps("evaluation", {
+                  initialValue: renttype,
+                  rules: [{
+                    required: true,
+                    message: "",
+                  }],
+                })}
+                value={renttype}
+              />
+              <div className={styles.evaluation}>
+                <div>
+                  <div className={this.checked(1) ? "anticon-collection-all" : "anticon-collection"} onClick={() => this.start(1)}></div>
+                  {/* <div></div> */}
+                </div>
+                <div>
+                  <div className={this.checked(2) ? "anticon-collection-all" : "anticon-collection"} onClick={() => this.start(2)}></div>
+                  {/* <div></div> */}
+                </div>
+                <div>
+                  <div className={this.checked(3) ? "anticon-collection-all" : "anticon-collection"} onClick={() => this.start(3)}></div>
+                  {/* <div></div> */}
+                </div>
+                <div>
+                  <div className={this.checked(4) ? "anticon-collection-all" : "anticon-collection"} onClick={() => this.start(4)}></div>
+                  {/* <div></div> */}
+                </div>
+                <div>
+                  <div className={this.checked(5) ? "anticon-collection-all" : "anticon-collection"} onClick={() => this.start(5)}></div>
+                  {/* <div></div> */}
+                </div>
+              </div>
             </div>
           </div>
           {/* <div className={`${styles.fromStyle} style`}>

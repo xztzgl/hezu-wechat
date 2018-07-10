@@ -321,9 +321,10 @@
         height: 1.38rem;
         width: 1.38rem;
       }
-    } // &:nth-child(2){
-    //   // border:1px solid green;
-    // }
+    }
+    &:nth-child(2) {
+      flex: 1;
+    }
     .introduction {
       display: flex;
       >div {
@@ -349,12 +350,18 @@
   .Introduction;
   >div {
     height: 1.38/3rem;
+    &:nth-child(1) {
+      width: inherit;
+      flex: 1;
+    }
     &:nth-child(2) {
       line-height: 1.38/3rem;
     }
   }
 }
-
+.intro+div{
+  text-align: center;
+}
 .detail {
   margin-bottom: 10px;
   border-bottom: 1px solid #eee;
