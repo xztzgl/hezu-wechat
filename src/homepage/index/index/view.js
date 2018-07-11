@@ -82,6 +82,7 @@ const city = () => {
 // const codeMap = store.session.get("codeMap");
 const getNamevalue = (pid) => {
   const codeMap = store.session.get("codeMap");
+  let mapData;
   if (codeMap) {
     const arryType = codeMap.filter(v => v.pid === pid);
     arryType.map(v => {
@@ -90,8 +91,9 @@ const getNamevalue = (pid) => {
       delete v.code;
       return true;
     });
-    return arryType;
+    mapData = [{ label: "全部", value: "" }].concat(arryType);
   }
+  return mapData;
 };
 const TabPane = Tabs.TabPane;
 // 创建react组件
