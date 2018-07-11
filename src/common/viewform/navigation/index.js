@@ -15,14 +15,14 @@ import history from "srcDir/common/router/history";
 // 创建react组件
 const alert = Modal.alert;
 class View extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   // this.state = {
-  //   //   promptText: "",
-  //   // };
-  //   // this.onTabClick = this.onTabClick.bind(this);
-  //   console.log(props, 2222);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      // promptText: "",
+    };
+    this.onclick = this.onclick.bind(this);
+    // console.log(props, 2222);
+  }
   // componentDidMount() {
   //   // console.log(this.props.prompt, 888);
   // }
@@ -31,11 +31,14 @@ class View extends React.Component {
       history.push("/homepage");
     } else if (e === 2) {
       // history.push("/release/");
-      alert("请选择要发布房源类型", "", [
+      const alertInstance = alert("请选择要发布房源类型", <div ref={(div) => { this.div = div; }}></div>, [
         // { text: "按钮一", onPress: () => console.log("第0个按钮被点击了") },
         { text: "找人合租", onPress: () => history.push("/roommates/") },
         { text: "发布房源", onPress: () => history.push("/housing/") },
       ]);
+      $(this.div).parents(".am-modal-wrap").click(() => {
+        alertInstance.close();
+      });
     } else if (e === 3) {
       history.push("/myCenter");
     }
