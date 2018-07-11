@@ -389,8 +389,10 @@ class View extends React.Component {
                       </div>
                       <div>
                         <div onClick={() => this.load(v.username)}>
-                          <div className="anticon-phone"><a href={`tel:${v.username}`}></a></div>
-                          <div><a href={`tel:${v.username}`}>联系她/他</a></div>
+                          <a href={`tel:${v.username}`}>
+                            <div className="anticon-phone"></div>
+                            <div>联系他</div>
+                          </a>
                         </div>
                       </div>
                     </div>
