@@ -122,8 +122,8 @@ class View extends React.Component {
     this.onTouchMove = this.onTouchMove.bind(this);
     this.detail = this.detail.bind(this);
     this.load = this.load.bind(this);
-    this.showModal = this.showModal.bind(this);
-    this.onClose = this.onClose.bind(this);
+    // this.showModal = this.showModal.bind(this);
+    // this.onClose = this.onClose.bind(this);
   }
   componentWillMount() {
     this.setheight(this);
@@ -160,11 +160,11 @@ class View extends React.Component {
   onTouchMove() {
     this.setState({ touchMove: true });
   }
-  onClose() {
-    this.setState({
-      modal: false,
-    });
-  }
+  // onClose() {
+  //   this.setState({
+  //     modal: false,
+  //   });
+  // }
   setheight(_this) {
     const windowH = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     const heightDiv = windowH - 100 + "px";
@@ -269,12 +269,12 @@ class View extends React.Component {
       });
     }
   }
-  showModal(e) {
-    e.preventDefault(); // 修复 Android 上点击穿透
-    this.setState({
-      modal: true,
-    });
-  }
+  // showModal(e) {
+  //   e.preventDefault(); // 修复 Android 上点击穿透
+  //   this.setState({
+  //     modal: true,
+  //   });
+  // }
   load(iphone) {
     // console.log(iphone);
     if (loader && loader.length > 0) {
@@ -283,7 +283,7 @@ class View extends React.Component {
       //   { text: <div><a href={`tel:${iphone}`}>马上联系</a></div> },
       // ]);
       this.setState({
-        modal: true,
+        // modal: true,
         iphone
       });
     } else {
@@ -389,8 +389,8 @@ class View extends React.Component {
                       </div>
                       <div>
                         <div onClick={() => this.load(v.username)}>
-                          <div className="anticon-phone"></div>
-                          <div>电话</div>
+                          <div className="anticon-phone"><a href={`tel:${v.username}`}></a></div>
+                          <div><a href={`tel:${v.username}`}>联系她/他</a></div>
                         </div>
                       </div>
                     </div>
@@ -402,7 +402,7 @@ class View extends React.Component {
             </div>
           </TabPane>
         </Tabs>
-        <Modal
+        {/* <Modal
           visible={this.state.modal}
           transparent
           maskClosable={false}
@@ -410,12 +410,12 @@ class View extends React.Component {
           title={this.state.iphone}
           footer={[
             { text: "再看看", onPress: () => { this.onClose(); } },
-            { text: <div><a href={`tel:${this.state.iphone}`}>马上联系</a></div>, onPress: () => {} },
+            { text: <div><a href={`tel:${this.state.iphone}`}>马上联系</a></div> },
           ]}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
         >
           <div>现在就联系吗？</div>
-        </Modal>
+        </Modal> */}
         <Nav checked={1} />
       </div>
     );
