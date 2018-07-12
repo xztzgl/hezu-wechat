@@ -31,8 +31,8 @@ const pathname = [
 ];
 
 const title = [
-  { "/homepage": "入职体检服务系统" },
-  { "/homepage/": "入职体检服务系统" },
+  { "/homepage": "好合租" },
+  { "/homepage/": "好合租" },
   { "/registration/": "员工登记" },
   { "/release/": "我的发布" },
   { "/myNews": "我的消息" },
