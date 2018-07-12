@@ -3,7 +3,7 @@ import React from "react";
 
 
 // import { Tabs, ListView, } from "antd-mobile";
-import { Tabs, ListView, Picker, List, Modal, } from "antd-mobile";
+import { Tabs, Picker, List, Modal, } from "antd-mobile";
 // import { StickyContainer, Sticky } from "react-sticky";
 // import history from "srcDir/common/router/history";
 // import store from "store2";
@@ -100,12 +100,8 @@ const TabPane = Tabs.TabPane;
 class View extends React.Component {
   constructor(props) {
     super(props);
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
 
     this.state = {
-      dataSource,
       length: -1,
       data: [],
       dataP: [],
@@ -248,7 +244,11 @@ class View extends React.Component {
         this.setState({
           values,
         }, () => {
-          this.setData(values, true, 1);
+          if (this.state.num === 1) {
+            this.setData(values, true, 1);
+          } else {
+            this.setData(values, true, 2);
+          }
         });
       }
     });
